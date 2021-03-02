@@ -26,7 +26,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// NEED FIXING
-Route::resource('/admin', [AdminUsersController::class]);
+
+Route::resource('admin-dc', AdminUsersController::class);
 
 
