@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller; //added extro for query builder
+use Illuminate\Support\Facades\DB; // to user the table class
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;  // To access auth user data
 use Illuminate\Support\Str; // To user string related function
 use Illuminate\Support\Arr; // To user array helper function 
+use App\Http\Requests\FormCreateDoctor; // To user the Custom request
 use App\Models\User;
 use App\Models\Role;
 use App\Models\ProfilePhoto;
@@ -13,8 +17,7 @@ use App\Models\Doctor;
 use App\Models\Department;
 use App\Models\District;
 
-
-class AdminUsersController extends Controller
+class AdminDoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +27,10 @@ class AdminUsersController extends Controller
     public function index()
     {
         $users = User::where('role_id','2')->get();
-        return \view('admin.doctor.index',\compact('users'));
+        // $doc = Doctor::all();
+        $departments = Department::pluck('name','id')->all();
+        $districts = District::pluck('name','id')->all();
+        return \view('admin.doctor.index',\compact('users','departments','districts'));
     }
 
     /**
@@ -35,8 +41,11 @@ class AdminUsersController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','id')->all();
-        // dd($roles);
-        return \view('admin.doctor.create',\compact('roles'));
+        $departments = Department::pluck('name','id')->all();
+        $districts = District::pluck('name','id')->all();
+        asort($departments);
+        asort($districts);
+        return \view('admin.doctor.create',\compact('roles','departments','districts'));
     }
 
     /**
@@ -45,7 +54,7 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormCreateDoctor $request)
     {
         // dd($request);
         //NEED validation 
@@ -57,7 +66,7 @@ class AdminUsersController extends Controller
         $validated = Arr::add($validated,'role_id','2');
 
 
-        $validated = Arr::add($validated,'extra','2');
+        // $validated = Arr::add($validated,'extra','2');
         // dd($validated);
 
         $validated['password'] = \bcrypt($request->password);
@@ -77,11 +86,30 @@ class AdminUsersController extends Controller
         $Newuser = User::Create($validated);
         // Doctor::Create()
 
-        return \redirect('admin-dc');
+        // $data = [
+        //     'user_id' => $Newuser->id,
+        //     'department_id' => $request->department_id,
+        //     'med_bio' => $request->med_bio,
+        //     'experience' => $validated['experience'],
+        //     'district_id' => $request->district_id,
+        //     'office_location' => $request->office_location,
+        //     'working_days' => $request->working_days,
+        //     'visit_time' => $request->visit_time
+        // ];
+
+        // dd($data);
+        // Doctor::create($data);
 
 
+        // testing
 
+        $Newuser->doctor()->create($validated);
         
+
+
+
+
+        return \redirect('admin-dc');
     }
 
     /**
@@ -92,8 +120,7 @@ class AdminUsersController extends Controller
      */
     public function show($id)
     {
-        // return \view('admin.doctor.show');
-        return "hellow";
+        //
     }
 
     /**
@@ -129,16 +156,4 @@ class AdminUsersController extends Controller
     {
         //
     }
-
-
-    // Extra methods
-
-    
-    
-    
-    
-
-
-
-
 }

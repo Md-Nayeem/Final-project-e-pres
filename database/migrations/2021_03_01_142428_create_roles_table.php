@@ -18,7 +18,16 @@ class CreateRolesTable extends Migration
             $table->string('name')->comment('The name of the role');
             $table->timestamps();
         });
+
+        DB::table('roles')->insert([
+            ['name'=>'Admin'],
+            ['name'=>'Doctor'],
+            ['name'=>'Staff'],
+            ['name'=>'Patient']
+        ]);
     }
+
+
 
     /**
      * Reverse the migrations.

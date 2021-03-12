@@ -17,13 +17,33 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->integer('photo_id')->unsigned()->nullable()->comment('The users photo');
-            $table->integer('role_id')->index()->unsigned()->nullable()->comment('The role in which the user belongs to');
+            $table->char('phone',11);
+            $table->unsignedBigInteger('photo_id')->unsigned()->nullable()->comment('The users photo');
+            $table->unsignedBigInteger('role_id')->index()->unsigned()->nullable()->comment('The role in which the user belongs to');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            /**
+             * This part is necessary for us to use the soft-delete feature.
+             */
+            // $table->softDeletes();
+             // Constraints
+            // $table->foreign('role_id')->references('id')->on('roles');
+
         });
+
+        // DB::table('users')->insert([
+        //     ['name'=>'Md Nayeem'],
+        //     ['email'=>'nayeemmd229@gmail.com'],
+        //     ['phone'=>'01784521451'],
+        //     ['photo_id'=>'1'],
+        //     ['role_id'=>'2'],
+        //     ['password'=>'$2y$10$hov/E.UrYpYR7CcBSYUL/uXK0cXLj6Q7TqEGUChTy48EmC5JTVPeG']
+        // ]);
+
+
+
     }
 
     /**

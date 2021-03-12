@@ -164,18 +164,37 @@
       <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
-
+    @php
+      $currentUser = Auth::user();
+      // dd($currentUser);
+    @endphp
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
+      
+      @auth
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="/img/profile/{{$currentUser->profilePhoto ? $currentUser->profilePhoto->path : 'anonymous.jpg'}}" alt="user's profile picture" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="{{route('dc.show',['dc'=>$currentUser->id])}}" class="d-block">{{$currentUser->name}}</a>
+          </div>
+        </div>
+      @endauth
+
+      @guest
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('dist/img/user2-160x160.jpg') }}" alt="user's profile picture" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
+          
+
           <a href="#" class="d-block">Alexander Pierce</a>
         </div>
       </div>
+      @endguest
 
       <!-- SidebarSearch Form -->
       {{-- <div class="form-inline">
@@ -235,6 +254,29 @@
                 <a href="./index3.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v3</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ">
+              <i class="fas fa-columns nav-icon"></i>
+              <p>
+                Others
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin-dc.dpt.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Departments</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin-dc.dist.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Districts</p>
                 </a>
               </li>
             </ul>
@@ -777,6 +819,10 @@
 {{-- <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script> --}}
+
+@yield('script')
+
+
 <!-- Bootstrap 4 -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- ChartJS -->

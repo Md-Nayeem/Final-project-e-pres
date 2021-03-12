@@ -21,6 +21,7 @@ class User extends Authenticatable
         'role_id',
         'photo_id',
         'email',
+        'phone',
         'password',
     ];
 
@@ -56,7 +57,16 @@ class User extends Authenticatable
 
     public function profilePhoto()
     {
-        return $this->belongsTo(ProfilePhoto::class, 'photo_id');//need to test
+        return $this->belongsTo(ProfilePhoto::class, 'photo_id');//need to test- works fine
+    }
+    /**
+     * Get the doctor associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class);
     }
 
 }

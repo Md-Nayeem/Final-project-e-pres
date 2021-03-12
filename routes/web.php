@@ -27,6 +27,19 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::resource('admin-dc', AdminUsersController::class);
+// Route::resource('admin-dc', AdminUsersController::class);
 
+// Route::resource('admin-dc-dpt', App\Http\Controllers\Departmentcontroller::class);
+
+// Route::resource('admin-dc-dist', App\Http\Controllers\DistrictController::class);
+
+
+Route::prefix('admin-dc')->name('admin-dc.')->group(function(){
+    // Route::resource('/', AdminUsersController::class);
+    Route::resource('/', App\Http\Controllers\AdminDoctorController::class);
+    Route::resource('dpt', App\Http\Controllers\Departmentcontroller::class);
+    Route::resource('dist', App\Http\Controllers\DistrictController::class);
+});
+
+Route::resource('dc', App\Http\Controllers\DoctorController::class);
 
