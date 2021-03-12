@@ -7,6 +7,10 @@ use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Department;
 use App\Models\District;
+use App\Models\ProfilePhoto;
+use Illuminate\Support\Str; // To user string related function
+use Illuminate\Support\Arr; // To user array helper function 
+
 
 class DoctorController extends Controller
 {
