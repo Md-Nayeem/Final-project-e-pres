@@ -69,4 +69,14 @@ class User extends Authenticatable
         return $this->hasOne(Doctor::class);
     }
 
+    /**
+     * Get the staff associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function staff()
+    {
+        return $this->hasOne(Staff::class);
+    }
+
 }

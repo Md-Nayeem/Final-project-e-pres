@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Models\Staff;
+use App\Models\Shift;
 use App\Http\Controllers\Controller; //added extro for query builder
 use Illuminate\Support\Facades\DB; // to user the table class
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;  // To access auth user data
 use Illuminate\Support\Str; // To user string related function
 use Illuminate\Support\Arr; // To user array helper function 
@@ -14,10 +16,10 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\ProfilePhoto;
 use App\Models\Doctor;
-use App\Models\Department;
-use App\Models\District;
+use App\Http\Requests\FormCreateStaff; // Data validation
 
-class AdminDoctorController extends Controller
+
+class AdminStaffController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,11 +28,10 @@ class AdminDoctorController extends Controller
      */
     public function index()
     {
-        $users = User::where('role_id','2')->get();
-        // $doc = Doctor::all();
-        $departments = Department::pluck('name','id')->all();
-        $districts = District::pluck('name','id')->all();
-        return \view('admin.doctor.index',\compact('users','departments','districts'));
+        
+        $users = User::where('role_id','3')->get();
+        return \view('admin.staff.index',\compact('users'));
+
     }
 
     /**
@@ -40,12 +41,10 @@ class AdminDoctorController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name','id')->all();
-        $departments = Department::pluck('name','id')->all();
-        $districts = District::pluck('name','id')->all();
-        asort($departments);
-        asort($districts);
-        return \view('admin.doctor.create',\compact('roles','departments','districts'));
+        
+        $shifts = Shift::pluck('name','id')->all();
+        // dd($shifts);
+        return \view('admin.staff.create', \compact('shifts'));
     }
 
     /**
@@ -54,62 +53,32 @@ class AdminDoctorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FormCreateDoctor $request)
+    public function store(FormCreateStaff $request)
     {
-        // dd($request);
-        //NEED validation 
 
         $validated = $request->all();
-        
-        
         // dd($validated);
-        $validated = Arr::add($validated,'role_id','2');
-
-
-        // $validated = Arr::add($validated,'extra','2');
-        // dd($validated);
+        
+        $validated = Arr::add($validated,'role_id','3');
 
         $validated['password'] = \bcrypt($request->password);
 
-        // $user = Auth::user();
-
         if($file = $request->file('photo_id')){
-            // $name = Str::substr(time(), 3, 4) . $file->getClientOriginalName();
-            //Photo Name
+            
             $name =  Str::slug($validated['name']) ."-".Str::random(4).".". Str::after($file->getClientOriginalName(), '.');
-            // return $name;
             $file->move('img/profile',$name); //This function will create a new folder in there is not any in public directory.
             $pro_photo = ProfilePhoto::create(['path'=>$name]);
             $validated['photo_id'] = $pro_photo->id;
+            // dd($validated);
         }
-
-        $Newuser = User::Create($validated);
-        // Doctor::Create()
-
-        // $data = [
-        //     'user_id' => $Newuser->id,
-        //     'department_id' => $request->department_id,
-        //     'med_bio' => $request->med_bio,
-        //     'experience' => $validated['experience'],
-        //     'district_id' => $request->district_id,
-        //     'office_location' => $request->office_location,
-        //     'working_days' => $request->working_days,
-        //     'visit_time' => $request->visit_time
-        // ];
-
-        // dd($data);
-        // Doctor::create($data);
-
-
-        // testing
-
-        $Newuser->doctor()->create($validated);
+        // dd($validated);
         
+        /* $Newstaff = User::Create($validated);
+        $Newstaff->staff()->create($validated); */
 
+        User::create($validated)->staff()->create($validated);
 
-
-
-        return \redirect('admin-dc');
+        return \redirect('admin-st');
     }
 
     /**

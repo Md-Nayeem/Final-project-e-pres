@@ -34,6 +34,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route::resource('admin-dc-dist', App\Http\Controllers\DistrictController::class);
 
 
+// Admin -> Doctor
 Route::prefix('admin-dc')->name('admin-dc.')->group(function(){
     // Route::resource('/', AdminUsersController::class);
     Route::resource('/', App\Http\Controllers\AdminDoctorController::class);
@@ -41,5 +42,18 @@ Route::prefix('admin-dc')->name('admin-dc.')->group(function(){
     Route::resource('dist', App\Http\Controllers\DistrictController::class);
 });
 
+//Doctors only
 Route::resource('dc', App\Http\Controllers\DoctorController::class);
+
+//Staff only
+Route::resource('st', App\Http\Controllers\StaffController::class);
+
+// Admin -> Staff
+Route::resource('admin-st', App\Http\Controllers\AdminStaffController::class);
+
+// Admin Only + Admin -> admin
+Route::resource('admin-ad', App\Http\Controllers\AdminController::class);
+
+
+
 

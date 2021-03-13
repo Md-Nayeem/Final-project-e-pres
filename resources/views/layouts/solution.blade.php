@@ -173,14 +173,27 @@
       <!-- Sidebar user panel (optional) -->
       
       @auth
+
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="/img/profile/{{$currentUser->profilePhoto ? $currentUser->profilePhoto->path : 'anonymous.jpg'}}" alt="user's profile picture" class="img-circle elevation-2" alt="User Image">
           </div>
-          <div class="info">
-            <a href="{{route('dc.show',['dc'=>$currentUser->id])}}" class="d-block">{{$currentUser->name}}</a>
-          </div>
-        </div>
+          @if ($currentUser->role_id == 2)
+            <div class="info">
+              <a href="{{route('dc.show',['dc'=>$currentUser->id])}}" class="d-block">{{$currentUser->name}}</a>
+            </div>
+          
+          @elseif($currentUser->role_id == 3)
+            <div class="info">
+              <a href="{{route('st.show',['st'=>$currentUser->id])}}" class="d-block">{{$currentUser->name}}</a>
+            </div>
+          @else
+            <div class="info">
+              <a href="{{route('ad.show',['dc'=>$currentUser->id])}}" class="d-block">{{$currentUser->name}}</a>
+            </div>
+          @endif
+        </div> 
+
       @endauth
 
       @guest
@@ -277,6 +290,35 @@
                 <a href="{{route('admin-dc.dist.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Districts</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link ">
+              <i class="fas fa-user-md nav-icon"></i>
+              <p>
+                Staff
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin-st.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Staffs</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin-st.create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add new</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index3.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v3</p>
                 </a>
               </li>
             </ul>
