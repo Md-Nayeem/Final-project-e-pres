@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class CreateShiftsTable extends Migration
 {
@@ -21,9 +22,9 @@ class CreateShiftsTable extends Migration
 
         DB::table('shifts')->insert([
 
-            ['name'=>'Morning'],
-            ['name'=>'Day'],
-            ['name'=>'Night']
+            ['name'=>'Morning','created_at'=>Carbon::now()->format('Y-m-d H:i:s'),'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')],
+            ['name'=>'Day','created_at'=>Carbon::now()->format('Y-m-d H:i:s'),'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')],
+            ['name'=>'Night','created_at'=>Carbon::now()->format('Y-m-d H:i:s'),'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')]
 
         ]);
     }

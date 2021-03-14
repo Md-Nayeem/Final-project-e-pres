@@ -78,5 +78,15 @@ class User extends Authenticatable
     {
         return $this->hasOne(Staff::class);
     }
+    
+    /**
+     * Get the admin associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
+    }
 
 }

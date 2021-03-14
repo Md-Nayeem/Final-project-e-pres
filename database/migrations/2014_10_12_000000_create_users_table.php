@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->char('phone',11);
             $table->unsignedBigInteger('photo_id')->unsigned()->nullable()->comment('The users photo');
             $table->unsignedBigInteger('role_id')->index()->unsigned()->nullable()->comment('The role in which the user belongs to');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('email_verified_at');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -35,10 +35,10 @@ class CreateUsersTable extends Migration
 
         // DB::table('users')->insert([
         //     ['name'=>'Md Nayeem'],
-        //     ['email'=>'nayeemmd229@gmail.com'],
+        //     ['email'=>'nayeem@gmail.com'],
         //     ['phone'=>'01784521451'],
         //     ['photo_id'=>'1'],
-        //     ['role_id'=>'2'],
+        //     ['role_id'=>''],
         //     ['password'=>'$2y$10$hov/E.UrYpYR7CcBSYUL/uXK0cXLj6Q7TqEGUChTy48EmC5JTVPeG']
         // ]);
 

@@ -23,6 +23,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0"> {{-- Here the table size can be adjusted --}}
+            @if ($users->count())
             <table class="table table-head-fixed text-nowrap">
               <thead>
                 
@@ -69,7 +70,6 @@
                 
               </thead>
               <tbody>
-                @if ($users)
                 
                   @foreach ($users as $user)
                   <tr class="text-justified">
@@ -94,12 +94,12 @@
                   </tr>
                   @endforeach  
                 
-                @else
-                  <h2>Their is no user</h2>
-                @endif
-
-              </tbody>
-            </table>
+                  
+                </tbody>
+              </table>
+              @else
+                <p class="text-center mt-2 text-secondary">Their is no Doctor.</p>
+              @endif
           </div>
           <!-- /.card-body -->
         </div>

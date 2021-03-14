@@ -189,7 +189,7 @@
             </div>
           @else
             <div class="info">
-              <a href="{{route('ad.show',['dc'=>$currentUser->id])}}" class="d-block">{{$currentUser->name}}</a>
+              <a href="{{route('admin-ad.show',['admin_ad'=>$currentUser->id])}}" class="d-block">{{$currentUser->name}}</a>
             </div>
           @endif
         </div> 
@@ -296,7 +296,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link ">
-              <i class="fas fa-user-md nav-icon"></i>
+              <i class="fas fa-users-cog nav-icon"></i>
               <p>
                 Staff
                 <i class="right fas fa-angle-left"></i>
@@ -311,6 +311,36 @@
               </li>
               <li class="nav-item">
                 <a href="{{route('admin-st.create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add new</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index3.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v3</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
+          <li class="nav-item">
+            <a href="#" class="nav-link ">
+              <i class="fas fa-user-shield nav-icon"></i>
+              <p>
+                Admin
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin-ad.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin-ad.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add new</p>
                 </a>

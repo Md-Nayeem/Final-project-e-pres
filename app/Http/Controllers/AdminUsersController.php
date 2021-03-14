@@ -12,7 +12,9 @@ use App\Models\ProfilePhoto;
 use App\Models\Doctor;
 use App\Models\Department;
 use App\Models\District;
-
+use App\Models\Shift;
+use App\Models\Admin;
+use App\Http\Requests\FromCreateAdmin;
 
 class AdminUsersController extends Controller
 {
@@ -23,8 +25,9 @@ class AdminUsersController extends Controller
      */
     public function index()
     {
-        $users = User::where('role_id','2')->get();
-        return \view('admin.doctor.index',\compact('users'));
+        $users = User::where('role_id','1')->get();
+        // $shift = Shift::pluck('name','id')->all();
+        return \view('admin.index',\compact('users'));
     }
 
     /**
@@ -34,9 +37,9 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name','id')->all();
+        $shifts = Shift::pluck('name','id')->all();
         // dd($roles);
-        return \view('admin.doctor.create',\compact('roles'));
+        return \view('admin.create',\compact('shifts'));
     }
 
     /**
@@ -45,7 +48,7 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FromCreateAdmin $request)
     {
         // dd($request);
         //NEED validation 
@@ -54,15 +57,15 @@ class AdminUsersController extends Controller
         
         
         // dd($validated);
-        $validated = Arr::add($validated,'role_id','2');
+        $validated = Arr::add($validated,'role_id','1');
 
 
-        $validated = Arr::add($validated,'extra','2');
+        // $validated = Arr::add($validated,'extra','2');
         // dd($validated);
 
         $validated['password'] = \bcrypt($request->password);
 
-        $user = Auth::user();
+        // $user = Auth::user();
 
         if($file = $request->file('photo_id')){
             // $name = Str::substr(time(), 3, 4) . $file->getClientOriginalName();
@@ -74,14 +77,12 @@ class AdminUsersController extends Controller
             $validated['photo_id'] = $pro_photo->id;
         }
 
-        $Newuser = User::Create($validated);
+        // $Newuser = User::Create($validated);
         // Doctor::Create()
-
-        return \redirect('admin-dc');
-
-
-
+        User::create($validated)->admin()->create($validated);
         
+        return \redirect('admin-ad');
+       
     }
 
     /**
@@ -93,7 +94,13 @@ class AdminUsersController extends Controller
     public function show($id)
     {
         // return \view('admin.doctor.show');
-        return "hellow";
+
+        $user = User::findOrFail($id);
+        // dd($user);
+        $shift = Shift::pluck('name','id')->all();
+        return \view('admin.profile',\compact('user','shift'));
+
+
     }
 
     /**
@@ -104,7 +111,14 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        $user = User::findOrFail($id);
+        // dd($user);
+        $shifts = Shift::pluck('name','id')->all();
+        return \view('admin.edit',\compact('user','shifts'));
+
+
+
     }
 
     /**
@@ -116,7 +130,32 @@ class AdminUsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $admin = Admin::where('user_id',$user->id)->first();
+
+        //Password
+        if (trim($request->password) == '') {  //Here using TRIM for not leting white spaces get HASHED 
+            $input = $request->except('password'); //PASSWORD attribute will be excluded
+        }else{
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+        }
+
+        //Profile picture
+        if($file = $request->file('photo_id')){
+            $name =  Str::slug($input['name']) ."-".Str::random(4).".". Str::after($file->getClientOriginalName(), '.');
+            $file->move('img/profile',$name); 
+            $pro_photo = ProfilePhoto::create(['path'=>$name]);
+            //seting new photo id to the input photo_id column
+            $input['photo_id'] = $pro_photo->id;
+        }
+
+        // dd($input);
+        $user->update($input);
+        $admin->update($input);
+
+        // Session::flash('User_Updated','User date is updated');
+        return \redirect('admin-ad/'.$user->id);
     }
 
     /**

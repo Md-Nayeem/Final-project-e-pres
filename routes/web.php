@@ -52,7 +52,7 @@ Route::resource('st', App\Http\Controllers\StaffController::class);
 Route::resource('admin-st', App\Http\Controllers\AdminStaffController::class);
 
 // Admin Only + Admin -> admin
-Route::resource('admin-ad', App\Http\Controllers\AdminController::class);
+Route::resource('admin-ad', App\Http\Controllers\AdminUsersController::class);
 
 
 

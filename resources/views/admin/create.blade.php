@@ -13,7 +13,7 @@
           <!-- /.card-header -->
           <!-- form start -->
           <div class="card-body">
-            {!! Form::open(['method'=>'POST', 'action' => 'App\Http\Controllers\AdminDoctorController@store', 'files' => true]) !!}
+            {!! Form::open(['method'=>'POST', 'action' => 'App\Http\Controllers\AdminUsersController@store', 'files' => true]) !!}
             <div class='form-group'>
               {!! Form::label('name', 'Name: ')!!}
               {!! Form::text('name',null, ['class'=>'form-control','placeholder'=>'name'])!!}
@@ -31,34 +31,9 @@
               {!! Form::password('password',['class'=>'form-control','placeholder'=>'password'])!!}
             </div>
             <div class='form-group'>
-              {!! Form::label('Department', 'Department: ')!!}
-              {!! Form::select('department_id', ['' => '--Select Departments--'] + $departments, 0, ['class'=>'form-control'])!!}
+              {!! Form::label('Shift', 'Shift: ')!!}
+              {!! Form::select('shift_id', ['' => '--Select Shift--'] + $shifts, 0, ['class'=>'form-control'])!!}
             </div>  
-            <div class="form-group">
-              {!! Form::label('Medical Bio', 'Medical Bio: ')!!}
-              {!! Form::textarea('med_bio',null, ['class'=>'form-control','rows'=>3])!!}
-            </div>
-            <div class='form-group'>
-              {!! Form::label('Experience', 'Experience: ')!!}
-              {!! Form::number('experience',1, ['class'=>'form-control'])!!}
-            </div>  
-            <div class='form-group'>
-              {!! Form::label('District', 'District: ')!!}
-              {!! Form::select('district_id', ['' => '--Select Districts--'] + $districts, 0, ['class'=>'form-control'])!!}
-            </div>
-            <div class='form-group'>
-              {!! Form::label('Office location', 'Office location: ')!!}
-              {!! Form::text('office_location',null, ['class'=>'form-control','placeholder'=>'Full address'])!!}
-            </div>
-            <div class='form-group'>
-              {!! Form::label('Working days', 'Working days: ')!!}
-              {!! Form::text('working_days',null, ['class'=>'form-control','placeholder'=>'Mon-Fri'])!!}
-            </div> 
-            <div class='form-group'>
-              {!! Form::label('Visiting time', 'Visiting time: ')!!}
-              {!! Form::text('visit_time',null, ['class'=>'form-control','placeholder'=>'7pm-10pm'])!!}
-            </div> 
-
             <div class='form-group'>
               {!! Form::label('photo_id', 'Photo: ')!!}
               {!! Form::file('photo_id',['class'=>'custom-control'])!!}
