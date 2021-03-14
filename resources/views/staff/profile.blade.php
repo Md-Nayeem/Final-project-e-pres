@@ -157,7 +157,7 @@
             </div>
 
             <div class="text-center mt-2">
-              <a class=" btn btn-success" href="{{route('dc.edit',['dc'=>$user->id])}}">Edit</a>
+              <a class=" btn btn-success" href="{{route('st.edit',['st'=>$user->id])}}">Edit</a>
             </div>
           
           </div>

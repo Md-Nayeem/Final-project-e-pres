@@ -10,7 +10,7 @@ use App\Models\District;
 use App\Models\ProfilePhoto;
 use Illuminate\Support\Str; // To user string related function
 use Illuminate\Support\Arr; // To user array helper function 
-
+use App\Http\Requests\FormEditDoctor;
 
 class DoctorController extends Controller
 {
@@ -85,7 +85,7 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FormEditDoctor $request, $id)
     {
 
         $user = User::findOrFail($id);

@@ -20,7 +20,7 @@
             </div>
             <div class='form-group'>
               {!! Form::label('email', 'Email: ')!!}
-              {!! Form::email('email',null, ['class'=>'form-control','placeholder'=>'email'])!!}
+              {!! Form::email('email',null, ['class'=>'form-control','disabled','placeholder'=>'email'])!!}
             </div>
             <div class='form-group'>
               {!! Form::label('phone', 'Phone: ')!!}
