@@ -57,12 +57,13 @@ class StaffController extends Controller
     public function show($id)
     {
         // return "welcome staff profile";
-
         $user = User::findOrFail($id);
-        // dd($user);
-        $shift = Shift::pluck('name','id')->all();
-        return \view('staff.profile',\compact('user','shift'));
-
+        if ($user->id === Auth::user()->id) {
+            // dd($user);
+            $shift = Shift::pluck('name','id')->all();
+            return \view('staff.profile',\compact('user','shift'));
+        }
+        return \redirect('404'); // User can not see other profile        
     }
 
     /**
@@ -74,9 +75,12 @@ class StaffController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        // dd($user);
-        $shifts = Shift::pluck('name','id')->all();
-        return \view('staff.edit',\compact('user','shifts'));
+        if ($user->id === Auth::user()->id) {
+            // dd($user);
+            $shifts = Shift::pluck('name','id')->all();
+            return \view('staff.edit',\compact('user','shifts'));
+        }
+        return \redirect('404'); // User can not edit other users
     }
 
     /**

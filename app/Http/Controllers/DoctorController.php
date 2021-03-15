@@ -11,6 +11,7 @@ use App\Models\ProfilePhoto;
 use Illuminate\Support\Str; // To user string related function
 use Illuminate\Support\Arr; // To user array helper function 
 use App\Http\Requests\FormEditDoctor;
+use Auth;
 
 class DoctorController extends Controller
 {
@@ -55,13 +56,14 @@ class DoctorController extends Controller
      */
     public function show($id)
     {
-        
         $user = User::findOrFail($id);
-        // dd($user);
-        $departments = Department::pluck('name','id')->all();
-        $districts = District::pluck('name','id')->all();
-        return \view('doctor.profile',\compact('user','departments','districts'));
-
+        if ($user->id === Auth::user()->id) {
+            // dd($user);
+            $departments = Department::pluck('name','id')->all();
+            $districts = District::pluck('name','id')->all();
+            return \view('doctor.profile',\compact('user','departments','districts'));
+        }
+        return \redirect('404'); // User can not edit other users
 
     }
 
@@ -75,9 +77,15 @@ class DoctorController extends Controller
     {
         $user = User::findOrFail($id);
         // dd($user);
-        $departments = Department::pluck('name','id')->all();
-        $districts = District::pluck('name','id')->all();
-        return \view('doctor.edit',\compact('user','departments','districts'));
+
+        if ($user->id === Auth::user()->id) {
+            $departments = Department::pluck('name','id')->all();
+            $districts = District::pluck('name','id')->all();
+            return \view('doctor.edit',\compact('user','departments','districts'));
+        }
+        return \redirect('404'); // User can not edit other users
+
+        
     }
 
     /**

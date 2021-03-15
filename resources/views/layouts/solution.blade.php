@@ -343,31 +343,34 @@
           
           
           
+          @if ($currentUser->role->name == 'Admin')
+            <li class="nav-item">
+              <a href="#" class="nav-link ">
+                <i class="fas fa-columns nav-icon"></i>
+                <p>
+                  Others
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('admin-dc.dpt.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Departments</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('admin-dc.dist.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Districts</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          @endif
           
           
-          <li class="nav-item">
-            <a href="#" class="nav-link ">
-              <i class="fas fa-columns nav-icon"></i>
-              <p>
-                Others
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('admin-dc.dpt.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Departments</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin-dc.dist.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Districts</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
