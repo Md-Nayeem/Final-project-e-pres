@@ -35,7 +35,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Admin -> Doctor
-Route::prefix('admin-dc')->name('admin-dc.')->group(function(){
+Route::middleware(['auth'])->prefix('admin-dc')->name('admin-dc.')->group(function(){
     // Route::resource('/', AdminUsersController::class);
     Route::resource('/', App\Http\Controllers\AdminDoctorController::class);
     Route::resource('dpt', App\Http\Controllers\Departmentcontroller::class);
@@ -49,10 +49,10 @@ Route::resource('dc', App\Http\Controllers\DoctorController::class);
 Route::resource('st', App\Http\Controllers\StaffController::class);
 
 // Admin -> Staff
-Route::resource('admin-st', App\Http\Controllers\AdminStaffController::class);
+Route::resource('admin-st', App\Http\Controllers\AdminStaffController::class)->middleware('auth');
 
 // Admin Only + Admin -> admin
-Route::resource('admin-ad', App\Http\Controllers\AdminUsersController::class);
+Route::resource('admin-ad', App\Http\Controllers\AdminUsersController::class)->middleware('auth');
 
 
 
