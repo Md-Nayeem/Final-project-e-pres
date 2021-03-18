@@ -27,7 +27,7 @@ class FormCreateStaff extends FormRequest
             'name'=>'required|max:100|min:3',
             'email'=>'required|unique:users', //here, user is the table name
             'phone'=>'required|max:11|min:11',
-            'password'=> 'required|min:6|max:20',
+            'password'=> 'required|min:8|confirmed',
             'shift_id'=>'required',
             'qualification'=>'required',
             'experience'=>'required',

@@ -28,7 +28,11 @@
             </div>
             <div class='form-group'>
               {!! Form::label('password', 'Password: ')!!}
-              {!! Form::password('password',['class'=>'form-control','placeholder'=>'password'])!!}
+              {!! Form::password('password',['class'=>'form-control ','placeholder'=>'password'])!!}
+            </div>
+            <div class='form-group'>
+              {!! Form::label('password_confirmation', 'Confirm Password: ')!!}
+              {!! Form::password('password_confirmation',['class'=>'form-control ','placeholder'=>'password'])!!}
             </div>
             <div class='form-group'>
               {!! Form::label('Shift', 'Shift: ')!!}

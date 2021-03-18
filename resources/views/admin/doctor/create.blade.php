@@ -31,6 +31,10 @@
               {!! Form::password('password',['class'=>'form-control','placeholder'=>'password'])!!}
             </div>
             <div class='form-group'>
+              {!! Form::label('password_confirmation', 'Confirm Password: ')!!}
+              {!! Form::password('password_confirmation',['class'=>'form-control ','placeholder'=>'password'])!!}
+            </div>
+            <div class='form-group'>
               {!! Form::label('Department', 'Department: ')!!}
               {!! Form::select('department_id', ['' => '--Select Departments--'] + $departments, 0, ['class'=>'form-control'])!!}
             </div>  

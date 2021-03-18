@@ -53,6 +53,17 @@ class UsersTableSeeder extends Seeder
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
+
+            [
+                'name'=>'Korim',
+                'email'=>'korim@gmail.com',
+                'phone'=>'01784521451',
+                'photo_id'=>'4',
+                'role_id'=>'4',
+                'password'=>$password,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
             
         ]);
     }

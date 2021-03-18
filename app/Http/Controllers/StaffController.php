@@ -13,6 +13,7 @@ use App\Models\Role;
 use App\Models\Staff;
 use App\Models\ProfilePhoto;
 use App\Http\Requests\FormEditStaff;
+use Auth;
 
 
 class StaffController extends Controller

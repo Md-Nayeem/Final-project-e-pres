@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB; // to user the table class
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
             AdminsTableSeeder::class,
             DoctorsTableSeeder::class,
             StaffsTableSeeders::class,
+            PatientsTableSeeder::class,
         ]);
     }
 }

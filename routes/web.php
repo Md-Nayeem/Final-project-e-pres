@@ -48,12 +48,12 @@ Route::resource('dc', App\Http\Controllers\DoctorController::class)->middleware(
 //Staff only
 Route::resource('st', App\Http\Controllers\StaffController::class)->middleware('staff');
 
-// Admin -> Staff
-Route::resource('admin-st', App\Http\Controllers\AdminStaffController::class)->middleware('auth');
+// Admin + doctor -> Staff
+Route::resource('admin-st', App\Http\Controllers\AdminStaffController::class)->middleware('admindoctor');
 
 // Admin Only + Admin -> admin
-Route::resource('admin-ad', App\Http\Controllers\AdminUsersController::class)->middleware('auth');
+Route::resource('admin-ad', App\Http\Controllers\AdminUsersController::class)->middleware('admin');
 
-
+Route::resource('user', App\Http\Controllers\UserCommonController::class)->middleware('auth');
 
 

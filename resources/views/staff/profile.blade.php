@@ -159,6 +159,10 @@
             <div class="text-center mt-2">
               <a class=" btn btn-success" href="{{route('st.edit',['st'=>$user->id])}}">Edit</a>
             </div>
+            <br>
+            <div class="text-center mt-2">
+              <a class=" btn btn-success" href="{{route('user.edit',['user'=>$user->id])}}">Change Password</a>
+            </div>
           
           </div>
           <div class='card-footer text-center'>

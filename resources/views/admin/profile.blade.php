@@ -101,6 +101,10 @@
             <div class="text-center mt-2">
               <a class=" btn btn-success" href="{{route('admin-ad.edit',['admin_ad'=>$user->id])}}">Edit</a>
             </div>
+            <br>
+            <div class="text-center mt-2">
+              <a class=" btn btn-success" href="{{route('user.edit',['user'=>$user->id])}}">Change Password</a>
+            </div>
           
           </div>
           <div class='card-footer text-center'>

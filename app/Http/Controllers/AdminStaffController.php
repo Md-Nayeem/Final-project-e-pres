@@ -30,6 +30,9 @@ class AdminStaffController extends Controller
     {
         
         $users = User::where('role_id','3')->get();
+
+        // FUTURE UPDATE -  here the doctor with will see a perticular set of staffs
+
         return \view('admin.staff.index',\compact('users'));
 
     }
