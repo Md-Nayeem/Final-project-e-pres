@@ -14,6 +14,8 @@ use App\Models\Checking;
 use App\Models\Prescription;
 use App\Models\MedicalTest;
 use App\Models\PatientMedicine;
+use App\Http\Requests\FromCreateCheckup;
+use App\Http\Requests\FromCreatePrescription;
 
 class DoctorPrescriptionController extends Controller
 {
@@ -50,7 +52,7 @@ class DoctorPrescriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function checkstore(Request $request)
+    public function checkstore(FromCreateCheckup $request)
     {
         // NEED FIXING
 
@@ -91,7 +93,7 @@ class DoctorPrescriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FromCreatePrescription $request)
     {
 
         // 3 table to add data  -> prescription | medical_test | patient_medicine

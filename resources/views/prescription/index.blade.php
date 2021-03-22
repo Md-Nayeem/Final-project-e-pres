@@ -125,11 +125,11 @@
                         @csrf
                         <div class="form-group">
                           <label for="disease">Disease</label>
-                          <input type="text" class="form-control" id="disease" name="disease">
+                          <input type="text" class="form-control" id="disease" name="disease" required >
                         </div>
                         <div class="form-group">
                           <label for="symptoms">Symptoms</label>
-                          <textarea class="form-control" name="symptoms" id="symptoms" rows="2"></textarea>
+                          <textarea class="form-control" name="symptoms" id="symptoms" required rows="2"></textarea>
                         </div>
                         <div class="form-row">
                           <div class="form-group col-md-7">
@@ -240,7 +240,7 @@
             var html = '';
             html += '<div id="inputFormRow">';
             html += '<div class="input-group mb-3">';
-            html += '<input type="text" name="test[]" class="form-control m-input" placeholder="Enter title" autocomplete="off">';
+            html += '<input type="text" name="test[]" class="form-control m-input" placeholder="Enter tests" autocomplete="off">';
             html += '<div class="input-group-append">';
             html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
             html += '</div>';
