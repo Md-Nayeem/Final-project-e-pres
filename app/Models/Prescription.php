@@ -16,11 +16,45 @@ class Prescription extends Model
         'patient_id',
         'doctor_id',
         'checking_id',
-        'note',
-        'start_date',
+        'disease',
+        'symptoms',
+        'procedure',
         'end_date',
         'next_visit',
     ];
+
+
+    /**
+     * Get the checking that owns the Prescription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function checking()
+    {
+        return $this->belongsTo(Checking::class);
+    }
+
+
+    /**
+     * Get all of the medicine for the Prescription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medicine()
+    {
+        return $this->hasMany(PatientMedicine::class);
+    }
+
+
+    /**
+     * Get all of the tests for the Prescription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tests()
+    {
+        return $this->hasMany(MedicalTest::class);
+    }
 
 
 }

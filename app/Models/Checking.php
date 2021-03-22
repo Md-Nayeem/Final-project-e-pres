@@ -21,4 +21,15 @@ class Checking extends Model
     ];
 
 
+    /**
+     * Get the prescription associated with the Checking
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function prescription()
+    {
+        return $this->hasOne(Prescription::class);
+    }
+
+
 }

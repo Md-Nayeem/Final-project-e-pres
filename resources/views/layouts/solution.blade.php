@@ -19,6 +19,14 @@
   <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+  
+  {{-- The Form tags --}}
+  <link rel="stylesheet" href="{{ asset('css/bootstrap-tagsinput.css') }}">
+
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <!-- Daterange picker -->
@@ -305,6 +313,40 @@
               </ul>
             </li>
           @endif
+          
+          @if ($currentUser->role->name == 'Doctor')
+            <li class="nav-item">
+              <a href="#" class="nav-link ">
+                {{-- <i class="fas fa-users-cog nav-icon"></i> --}}
+                <i class="fas fa-file-medical nav-icon"></i>
+                <p>
+                  Prescription System
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('dc-pres.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>My Patients</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('dc.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>New</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="./index3.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>None</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          @endif
+
 
           @if ($currentUser->role->name == 'Admin' || $currentUser->role->name == 'Doctor')
             <li class="nav-item">

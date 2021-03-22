@@ -89,4 +89,15 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
+
+    /**
+     * Get the patient associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function patient()
+    {
+        return $this->hasOne(Patient::class);
+    }
+
 }

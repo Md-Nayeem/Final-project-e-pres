@@ -56,4 +56,17 @@ Route::resource('admin-ad', App\Http\Controllers\AdminUsersController::class)->m
 
 Route::resource('user', App\Http\Controllers\UserCommonController::class)->middleware('auth');
 
+// Only doctor -> prescription
+Route::resource('dc-pres', App\Http\Controllers\DoctorPrescriptionController::class)->middleware('doctor');
+
+Route::middleware(['doctor'])->prefix('dc-pres')->name('dc-pres.')->group(function(){
+   
+    // Route::resource('/', App\Http\Controllers\DoctorPrescriptionController::class);
+    Route::post('find', [App\Http\Controllers\DoctorPrescriptionController::class, 'findPatient']);
+    Route::post('checkdata', [App\Http\Controllers\DoctorPrescriptionController::class, 'checkstore'])->name('checkdata');
+    // Route::post('mypatientlist', [App\Http\Controllers\DoctorPrescriptionController::class, 'patientlist'])->name('patientlist');
+});
+
+
+// Route::get('')
 

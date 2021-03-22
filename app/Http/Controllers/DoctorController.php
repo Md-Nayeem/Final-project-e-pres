@@ -136,4 +136,19 @@ class DoctorController extends Controller
     {
         //
     }
+
+
+    public function patientlist($id){
+
+        
+
+
+    }
+
+
+
+
+
+
+
 }

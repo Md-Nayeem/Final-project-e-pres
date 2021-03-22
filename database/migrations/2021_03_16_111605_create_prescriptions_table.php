@@ -18,8 +18,9 @@ class CreatePrescriptionsTable extends Migration
             $table->foreignId('patient_id')->constrained('patients');
             $table->foreignId('doctor_id')->constrained('doctors');
             $table->foreignId('checking_id')->constrained('checkings');
-            $table->text('note');
-            $table->date('start_date');
+            $table->text('disease');
+            $table->text('symptoms');
+            $table->text('procedure');
             $table->date('end_date');
             $table->date('next_visit');
             $table->timestamps();
