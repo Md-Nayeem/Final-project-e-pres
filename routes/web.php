@@ -68,5 +68,10 @@ Route::middleware(['doctor'])->prefix('dc-pres')->name('dc-pres.')->group(functi
 });
 
 
+Route::resource('patient', App\Http\Controllers\PatientMobBookingController::class)->middleware('auth');
+
+Route::post('doctor/search', [App\Http\Controllers\PatientMobBookingController::class, 'search'])->name('doctor.search');
+
+
 // Route::get('')
 
