@@ -23,6 +23,9 @@
   {{-- The Form tags --}}
   <link rel="stylesheet" href="{{ asset('css/bootstrap-tagsinput.css') }}">
 
+  {{-- Custom CSS --}}
+  <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
   <!-- Select2 -->
   <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">

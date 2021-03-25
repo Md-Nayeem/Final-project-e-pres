@@ -99,7 +99,6 @@ class DoctorPrescriptionController extends Controller
         // 3 table to add data  -> prescription | medical_test | patient_medicine
         // Quantity logic from the medicine table "maximum quantity" for preticular medicine
         
-
         // dd($request);
 
         $allData = $request->all(); //Array
@@ -145,11 +144,6 @@ class DoctorPrescriptionController extends Controller
 
         $checking->prescription()->create($prescriptionData);
         // $prescription = Prescription::create($prescriptionData);
-        // $prescription
-        
-        
-
-        // $pres = Prescription::find(1);
         // $checking->Prescription->medicine->create($medicines);
         // $pres->medicine->create($medicines);
 
@@ -167,7 +161,7 @@ class DoctorPrescriptionController extends Controller
         
         }
 
-
+        // Patient Test data entry
         for ($i=0; $i < count($tests); $i++) { 
             
             $test_data = [
@@ -178,21 +172,7 @@ class DoctorPrescriptionController extends Controller
 
         }
 
-
-
-
-
-
-        
-        
-        
-        
         return \redirect(route('dc-pres.index'));
-        
-
-
-
-
 
     }
 
@@ -214,7 +194,6 @@ class DoctorPrescriptionController extends Controller
         // dd($user);
         return \view('prescription.index', \compact('patient'));
 
-
     }
 
     /**
@@ -226,10 +205,52 @@ class DoctorPrescriptionController extends Controller
     public function show($id)
     {
         $user_arr = User::where('id',$id)->get();
+
+
+
+
+
+
+        // NEED FIXING
+    // $user_medicine_info = 
+    // $user_test_info =
+
+        $doctor = Doctor::where('user_id',Auth::user()->id)->get();
+        // dd($doctor[0]);
+
+
+        //THis is the user
         $patient = $user_arr[0];
+        
+        // return $patient->patient->id;
+
+        // return $patient->id;
+
         // dd($user);
 
-        return \view('prescription.index',\compact('patient'));
+
+        // Checking to the prescription
+
+        // $patientChecking = Checking::where('patient_id',$patient->id)->get();
+
+
+        
+
+        $oldprescriptionData = Prescription::select('*')
+        ->where('patient_id','=',$patient->patient->id)
+        ->where('doctor_id','=',$doctor[0]->id)
+        ->get();
+
+        
+
+        // $medicines = $oldprescriptionData[0]->medicine[0]->medicine_name;
+
+        // dd($medicines);
+
+        // dd($oldprescriptionData);
+
+
+        return \view('prescription.index',\compact('patient','oldprescriptionData'));
 
         // return view('')
 
