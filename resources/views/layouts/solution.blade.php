@@ -348,6 +348,39 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link ">
+                {{-- <i class="fas fa-users-cog nav-icon"></i> --}}
+                {{-- <i class="fas fa-file-medical nav-icon"></i> --}}
+                <i class="fas fa-clock nav-icon"></i>
+                <p>
+                  My Schedule
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('dc-schedule.index')}}" class="nav-link">
+                    {{-- <i class="far fa-circle"></i> --}}
+                    <i class="far fa-eye nav-icon"></i>
+                    <p>view</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('dc-schedule.create')}}" class="nav-link">
+                    {{-- <i class="far fa-circle nav-icon"></i> --}}
+                    <i class="fas fa-plus-circle nav-icon"></i>
+                    <p>Add</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="./index3.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>None</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
           @endif
 
 

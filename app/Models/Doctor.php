@@ -53,4 +53,35 @@ class Doctor extends Model
     }
 
 
+
+    /**
+     * Get all of the workingdays   for the Doctor
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function workingdays()
+    {
+        return $this->hasMany(DoctorWorkingDay::class);
+    }
+
+
+    /**
+     * Get all of the doc_schedules for the Doctor
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function doc_schedules()
+    {
+        return $this->hasManyThrough(
+            DoctorSchedule::class, 
+            DoctorWorkingDay::class,
+            'doctor_id',
+            'doctor_working_day_id'
+        );
+    }
+
+
+
+
+
 }

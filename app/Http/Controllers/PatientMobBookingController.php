@@ -11,6 +11,8 @@ use Auth;
 use Illuminate\Support\Arr; // To user array helper function
 use App\Models\Patient;
 use App\Models\Checking;
+use App\Models\DoctorWorkingDay;
+use App\Models\DoctorSchedule;
 use App\Models\Prescription;
 use App\Models\MedicalTest;
 use App\Models\PatientMedicine;
@@ -65,7 +67,24 @@ class PatientMobBookingController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        // show doctor schedules 
+
+        
+        $doctor = Doctor::findOrFail($id);
+        
+        // $workingdays = DoctorWorkingDay::where('doctor_  id',$id);
+        // $workingdays = $doctor->workingdays;
+        // dd($workingdays[1]->dates);
+        // $schedules_Arrays = $doctor->doc_schedules;
+
+        
+        // dd($doctor->user->profilePhoto->path);
+
+        return view('patient.availableDoctorDates',\compact('doctor'));
+
+
+
     }
 
 
@@ -76,7 +95,7 @@ class PatientMobBookingController extends Controller
 
         // return $request->filled('name');
 
-
+        // when name input is given
         if ($request->filled('name')) {
 
             $userdoc = User::where('name','LIKE',"%{$search['name']}%")
@@ -89,9 +108,11 @@ class PatientMobBookingController extends Controller
             return view('patient.searchedDoctors',\compact('doctors'));
 
         }else {
-            
+            //when name input is not given
             $doctors = Doctor::where('district_id','=',$search['district_id'])
                 ->where('department_id','=',$search['department_id'])
+                ->orWhere('district_id','=',$search['district_id'])
+                ->orWhere('department_id','=',$search['department_id'])
                 ->get();
 
             return view('patient.searchedDoctors',\compact('doctors'));

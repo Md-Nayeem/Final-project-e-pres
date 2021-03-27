@@ -42,7 +42,7 @@
                       <td>{{$doctor->user->name}}</td>
                       <td>{{$doctor->department->name}}</td>
                       <td>
-                        <a class=" btn btn-success" href="{{route('dc-pres.show',['dc_pre'=>$doctor->user->id])}}">Book Appointment</a>
+                        <a class=" btn btn-success" href="{{route('patient.show',['patient'=>$doctor->id])}}">Book Appointment</a>
                       </td>
                     </tr>
                   @endforeach  

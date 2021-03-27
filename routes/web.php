@@ -72,6 +72,7 @@ Route::resource('patient', App\Http\Controllers\PatientMobBookingController::cla
 
 Route::post('doctor/search', [App\Http\Controllers\PatientMobBookingController::class, 'search'])->name('doctor.search');
 
+Route::resource('dc-schedule', App\Http\Controllers\DoctorScheduleController::class)->middleware('doctor');
 
 // Route::get('')
 
