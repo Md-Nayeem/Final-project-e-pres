@@ -54,6 +54,11 @@ Route::resource('admin-st', App\Http\Controllers\AdminStaffController::class)->m
 // Admin Only + Admin -> admin
 Route::resource('admin-ad', App\Http\Controllers\AdminUsersController::class)->middleware('admin');
 
+
+Route::get('admin-ad-li', [App\Http\Controllers\AdminUsersController::class, 'listadmin'])->middleware('admin')->name('admin-ad.li');
+
+
+
 Route::resource('user', App\Http\Controllers\UserCommonController::class)->middleware('auth');
 
 // Only doctor -> prescription

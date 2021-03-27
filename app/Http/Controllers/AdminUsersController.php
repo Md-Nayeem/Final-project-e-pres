@@ -25,10 +25,29 @@ class AdminUsersController extends Controller
      */
     public function index()
     {
-        $users = User::where('role_id','1')->get();
+        // $users = User::where('role_id','1')->get();
+
+        $users = User::all();
+
+
+
         // $shift = Shift::pluck('name','id')->all();
         return \view('admin.index',\compact('users'));
     }
+
+
+
+    public function listadmin()
+    {
+
+
+        $users = User::where('role_id','1')->get();
+        // $shift = Shift::pluck('name','id')->all();
+        return \view('admin.listadmin',\compact('users'));
+    }
+
+
+
 
     /**
      * Show the form for creating a new resource.

@@ -1,81 +1,91 @@
 @extends('layouts.solution')
 
 @section('content')
-<section class="content mt-4">
+<section class="content pt-4">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">All Admins Info</h3>
-    
-            <div class="card-tools">
-              <div class="input-group input-group-sm" style="width: 150px;">
-                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-    
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-default">
-                    <i class="fas fa-search"></i>
-                  </button>
-                </div>
+    <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner mx-2">
+                <h3>{{$users->count()}} <i class="fas fa-users ml-2"></i></h3>
+
+                <p>Total Users</p>
               </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- /.card-header -->
-          <div class="card-body table-responsive p-0"> {{-- Here the table size can be adjusted --}}
-            <table class="table table-head-fixed text-nowrap">
-              <thead>
-                
-                <tr>
-                    <th scope="col" colspan="5" class="bg-info">Personal</th>
-                    <th scope="col" class="bg-success">Office</th>
-                    <th scope="col" colspan="2" class="bg-warning">Others</th>
-                </tr>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Photo</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
+          <!-- ./col -->
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner mx-2">
+                {{-- Role -> user -> count --}}
+                <h3>{{(App\Models\Role::findOrFail(2)->users->count())}} <i class="fas ml-2 fa-user-md "></i></h3>
 
-                    <th>Shift</th>
-
-                    <th>Created</th>
-                    <th>Updated</th>
-                    
-                </tr>
-                    
-              </thead>
-              <tbody>
-                @if ($users)
-                
-                  @foreach ($users as $user)
-                  <tr class="text-justified">
-                    <td scope="row">{{$user->id}}</td>
-                    <td>
-                      <img height="50px" class="rounded" src="/img/profile/{{$user->profilePhoto ? $user->profilePhoto->path : 'doctor.png'}}" alt="user's profile picture">
-                    </td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->phone}}</td>
-                    <td>{{$user->admin->shift->name}}</td>                    
-                    <td>{{$user->created_at->diffForHumans()}}</td>{{-- Using carbon class --}}
-                    <td>{{$user->updated_at->diffForHumans()}}</td>
-                  </tr>
-                  @endforeach  
-                
-                @else
-                  <h2>Their is no user</h2>
-                @endif
-
-              </tbody>
-            </table>
+                <p>Doctor</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
           </div>
-          <!-- /.card-body -->
+          <!-- ./col -->
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner mx-2">
+                {{-- Role -> user -> count --}}
+                <h3>{{(App\Models\Role::findOrFail(3)->users->count())}} <i class="fas fa-users-cog ml-2 nav-icon"></i>  </h3>
+
+                <p>Staff</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner mx-2">
+                {{-- Role -> user -> count --}}
+                <h3>{{(App\Models\Role::findOrFail(1)->users->count())}} <i class="fas fa-user-shield ml-2 nav-icon"></i>  </h3>
+
+                <p>Admin</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner mx-2">
+                {{-- Role -> user -> count --}}
+                <h3>{{(App\Models\Role::findOrFail(1)->users->count())}} <i class="fas fa-user-injured ml-2 nav-icon"></i></h3>
+
+                <p>Patient</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
         </div>
-        <!-- /.card -->
-      </div>
-    </div>
+        <!-- /.row -->
   </div>
 </section>
 @endsection
