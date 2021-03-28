@@ -73,13 +73,41 @@ class PatientMobBookingController extends Controller
         
         $doctor = Doctor::findOrFail($id);
         
-        // $workingdays = DoctorWorkingDay::where('doctor_  id',$id);
-        // $workingdays = $doctor->workingdays;
-        // dd($workingdays[1]->dates);
-        // $schedules_Arrays = $doctor->doc_schedules;
+        //testing
+            // $workingdays = DoctorWorkingDay::where('doctor_  id',$id);
+            // $workingdays = $doctor->workingdays;
+            // dd($workingdays[1]->dates);
+            // $schedules_Arrays = $doctor->doc_schedules;
+        //t
 
+        //This code is used for the schedule display in view
+            // for ($i=0; $i < $doctor->workingdays->count() ; $i++) { 
+                
+            //     echo "<br>";
+            //     $perticulardaytimes =  $doctor->workingdays->get($i)->dc_schedules;
         
-        // dd($doctor->user->profilePhoto->path);
+            //     $x = 0;
+        
+            //     foreach ($perticulardaytimes as $perticulardaytime ) {
+                    
+            //         echo $perticulardaytime->time . " ";
+        
+        
+            //     }
+            // }
+
+
+
+
+       
+        // return $x;
+
+
+        // testdata()
+            // dd($perticularday);
+            // dd($perticularday[0]->time);
+            // dd($doctor->user->profilePhoto->path);
+        //dd
 
         return view('patient.availableDoctorDates',\compact('doctor'));
 
