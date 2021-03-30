@@ -21,12 +21,36 @@ class DoctorsTableSeeder extends Seeder
             [
                 'user_id'=>2,
                 'med_bio'=>'DMC MBBS',
-                'experience'=>'1',
+                'experience'=>'3',
                 'office_location'=>'Mirpur 1',
                 'working_days'=>'Mon-Fri',
                 'visit_time'=>'7pm-10pm',
                 'department_id'=>1,
                 'district_id'=>1,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'user_id'=>3,
+                'med_bio'=>'Sir Salimullah Medical College',
+                'experience'=>'5',
+                'office_location'=>'Nasirabad',
+                'working_days'=>'Mon-Fri',
+                'visit_time'=>'7pm-10pm',
+                'department_id'=>2,
+                'district_id'=>7,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'user_id'=>4,
+                'med_bio'=>'Mymensingh Medical College',
+                'experience'=>'3',
+                'office_location'=>'CK Ghos Road',
+                'working_days'=>'Mon-Fri',
+                'visit_time'=>'7pm-10pm',
+                'department_id'=>3,
+                'district_id'=>3,
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],

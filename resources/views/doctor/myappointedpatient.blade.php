@@ -51,6 +51,12 @@
               <tbody>
                 
                   @foreach ($users as $user)
+                
+                  @php
+                    //To use the eloquent methods re-initiating user again
+                    $user = App\Models\User::find($user->id);
+                  @endphp
+
                   <tr class="text-justified">
                     {{-- <td scope="row">{{$user->id}}</td> --}}
                     <td>
@@ -71,6 +77,9 @@
                     <td>{{$user->created_at->diffForHumans()}}</td>{{-- Using carbon class --}}
                     <td>
                       {{-- Here will be logic according to the appointment table showing Prescribe status --}}
+
+                      {{-- It should be a form with a hidden value --}}
+
                       <a class=" btn btn-success" href="{{route('dc-pres.show',['dc_pre'=>$user->id])}}">Prescribe</a>
                     </td>
                     {{-- <td>{{$user->updated_at->diffForHumans()}}</td> --}}

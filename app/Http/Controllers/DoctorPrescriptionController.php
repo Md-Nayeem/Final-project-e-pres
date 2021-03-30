@@ -14,8 +14,14 @@ use App\Models\Checking;
 use App\Models\Prescription;
 use App\Models\MedicalTest;
 use App\Models\PatientMedicine;
+use App\Models\Appointment;
 use App\Http\Requests\FromCreateCheckup;
 use App\Http\Requests\FromCreatePrescription;
+use Carbon\Carbon;
+
+use Illuminate\Support\Facades\DB;
+
+
 
 class DoctorPrescriptionController extends Controller
 {
@@ -27,7 +33,54 @@ class DoctorPrescriptionController extends Controller
     public function index()
     {
         // Patients will be used
-        $users = User::where('role_id','4')->get();
+        
+    $users = User::where('role_id','4')->get();
+        
+        // Appointment -> patient -> user
+        
+        $todayNow = Carbon::now()->format('Y-m-d H:i:s');
+        
+        // $nextDay = $todayNow->addDays(1);
+        
+        // $todayNow = Carbon::now()->format('Y-m-d H:i:s');
+        
+        // dd($todayNow);
+        
+        $doctor_id = Auth::user()->doctor->id;
+        
+        // dd($doctor_id);
+        
+        
+        // $appointments = Appointment::where('dates','>',Carbon::now()->format('d-m-Y H:i:s'))->get();
+        
+        
+        
+        // $users = User::has('patient.appointments')
+        //     ->where('role')
+        //     ->get();
+        
+
+
+        // this an upcomimg days, this doctor, and patients
+        $users = DB::table('appointments')
+            ->join('doctors','doctors.id','appointments.doctor_id')
+            ->join('patients','patients.id','appointments.patient_id')
+            ->join('users','users.id','patients.user_id')
+            ->where('doctors.id','=',$doctor_id)
+            ->where('dates','>',Carbon::now()->format('d-m-Y H:i:s'))
+            ->get();
+
+
+
+        
+
+        // dd($users);
+        // $appointments = Appointment::whereBetween('dates', [Carbon::now()->format('d-m-Y'), 100]);
+
+        // $users = $appointments
+
+
+
         return \view('doctor.myappointedpatient',\compact('users'));
 
     }
@@ -70,6 +123,12 @@ class DoctorPrescriptionController extends Controller
 
         // dd($validated);
         // $patient->doctorchecking->create($validated);
+
+        //test
+        
+
+
+
         $checking = Checking::create($validated);
 
         $request->session()->put('checking_id', $checking->id);

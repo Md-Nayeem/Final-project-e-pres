@@ -360,7 +360,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{route('dc-schedule.index')}}" class="nav-link">
+                  <a href="{{route('dc-schedule.show',['dc_schedule'=>$currentUser->doctor->id])}}" class="nav-link">
                     {{-- <i class="far fa-circle"></i> --}}
                     <i class="far fa-eye nav-icon"></i>
                     <p>view</p>

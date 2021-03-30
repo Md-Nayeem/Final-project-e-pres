@@ -18,6 +18,7 @@ use App\Models\MedicalTest;
 use App\Models\PatientMedicine;
 use App\Models\Department;
 use App\Models\District;
+use App\Models\Appointment;
 
 
 class PatientMobBookingController extends Controller
@@ -45,8 +46,44 @@ class PatientMobBookingController extends Controller
      */
     public function create()
     {
-        //
+        
+        return view('patient.confirmAppointment');
+
+
     }
+
+
+    public function makeAppointment(Request $request)
+    {
+        // dd($request);
+        $doctor =  Doctor::findOrFail($request->doctor_id);
+        $time = $request->time;
+        $date = $request->dates;
+
+
+    // test
+        // appoint will not be possible in the same day 
+        $user =  Auth::user();
+
+
+        // dd($user->patient->id);
+
+        $oldAppointment = Appointment::where([
+            ['doctor_id','=',$doctor->id],
+            ['patient_id','=',$user->patient->id],
+            ['dates','=',$date]
+        ])->get();
+
+        // dd($oldAppointment[0]->id);
+
+        // dd($doctor);
+        return view('patient.confirmAppointment',\compact('doctor','time','date','oldAppointment'));
+
+    }
+
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -56,7 +93,20 @@ class PatientMobBookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+
+        $patient =  Auth::user()->patient;
+
+        // dd($patient->id);
+        
+        // adding to the request - This is not a standard approach
+            // $request->request->add(['varible'=>'value']);
+
+        // Union Array 
+        Appointment::create($request->all() + ['patient_id' => $patient->id]);
+
+        return \redirect('patient/'.$request->doctor_id);
+
     }
 
     /**
@@ -67,9 +117,6 @@ class PatientMobBookingController extends Controller
      */
     public function show($id)
     {
-        
-        // show doctor schedules 
-
         
         $doctor = Doctor::findOrFail($id);
         
@@ -102,7 +149,6 @@ class PatientMobBookingController extends Controller
        
         // return $x;
 
-
         // testdata()
             // dd($perticularday);
             // dd($perticularday[0]->time);
@@ -111,9 +157,28 @@ class PatientMobBookingController extends Controller
 
         return view('patient.availableDoctorDates',\compact('doctor'));
 
+    }
 
+// patient views appointment start
+    public function viewMyAppointments($id){
+
+        $patient = Patient::findOrFail($id);
+        $appointments = Appointment::where('patient_id','=',$patient->id)
+            ->orderBy('dates', 'desc')
+            ->get();
+
+        // dd($appointments);
+
+        return view('patient.myAppointments',\compact('appointments'));
 
     }
+
+// end
+
+    
+    
+
+
 
 
     public function search(Request $request){
@@ -209,6 +274,16 @@ class PatientMobBookingController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+
+        // dd($id);
+
+        $appointment = Appointment::findOrFail($id);
+        $doctor_id = $appointment->doctor_id;
+
+        $appointment->delete();
+
+        // return \redirect()->back();
+        return \redirect('patient/'.$doctor_id);
     }
 }

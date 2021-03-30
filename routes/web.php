@@ -73,11 +73,23 @@ Route::middleware(['doctor'])->prefix('dc-pres')->name('dc-pres.')->group(functi
 });
 
 
+// Index shows the doctor search 
 Route::resource('patient', App\Http\Controllers\PatientMobBookingController::class)->middleware('auth');
 
+Route::post('patient/makeAppointment', [App\Http\Controllers\PatientMobBookingController::class, 'makeAppointment'])->name('patient.makeAppointment');
+
+Route::get('patient/appointments/{appointments}', [App\Http\Controllers\PatientMobBookingController::class, 'viewMyAppointments'])->name('patient.appointments');
+// Route::get('doctor/')
+
+
+// confusion here!!!
 Route::post('doctor/search', [App\Http\Controllers\PatientMobBookingController::class, 'search'])->name('doctor.search');
+
+
+
 
 Route::resource('dc-schedule', App\Http\Controllers\DoctorScheduleController::class)->middleware('doctor');
 
+// Route::view('doctor/schedule/{schedule}', [App\Http\Controllers\PatientMobBookingController::class, 'showMySchedule'])->name('doctor.schedule');
 // Route::get('')
 

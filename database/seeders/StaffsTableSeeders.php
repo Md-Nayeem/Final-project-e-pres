@@ -19,7 +19,7 @@ class StaffsTableSeeders extends Seeder
         DB::table('staff')->insert([
             
             [
-                'user_id'=>3,
+                'user_id'=>5,
                 'shift_id'=>3,
                 'qualification'=>'BIIT',
                 'experience'=> 1,

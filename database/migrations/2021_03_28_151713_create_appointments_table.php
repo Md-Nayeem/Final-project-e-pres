@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCheckingsTable extends Migration
+class CreateAppointmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateCheckingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('checkings', function (Blueprint $table) {
+        Schema::create('appointments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('doctor_id')->constrained('doctors');
             $table->foreignId('patient_id')->constrained('patients');
-            $table->foreignId('appoinment_id')->constrained('appointments');
-            $table->decimal('BP_up',3,0);
-            $table->decimal('BP_down',3,0);
-            $table->char('Heart_rate',3);
-            $table->string('Breathing_status');
+            $table->timestamp('dates');
+            $table->time('time');
+            $table->boolean('visited')->default('0');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateCheckingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('checkings');
+        Schema::dropIfExists('appointments');
     }
 }

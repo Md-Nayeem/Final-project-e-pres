@@ -33,11 +33,22 @@ class PatientsTableSeeder extends Seeder
         DB::table('patients')->insert([
             
             [
-                'user_id'=>4,
-                'age'=>20,
+                'user_id'=>6,
+                'age'=>30,
                 'gender_type_id'=> 1,
                 'height'=> $height,
                 'weight'=> $weight,
+                'BMI'=> $bmi,
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            
+            [
+                'user_id'=>7,
+                'age'=>35,
+                'gender_type_id'=> 1,
+                'height'=> $height+4,
+                'weight'=> $weight+3,
                 'BMI'=> $bmi,
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')

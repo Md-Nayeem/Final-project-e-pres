@@ -47,7 +47,7 @@
                       <th scope="row"> {{\Carbon\Carbon::parse($workday->dates)->isoFormat('MMM Do YY')}} </th>
                       <td> {{\Carbon\Carbon::parse($workday->dates)->isoFormat('ddd')}}  </td>
                       
-                      <td > 
+                      <td> 
 
                           @php
                               
@@ -59,14 +59,65 @@
                               
                               $time = \Carbon\Carbon::parse($perticulardaytime->time)->isoFormat('h:mm A');
 
-                              echo "<a href='#' class='btn btn-sm btn-success mb-1 ml-1 mr-1'>$time</a>";
+                              // NEED FIXING  doctor_id should be transferred from here.
+
+                              // echo "<a href='".route('patient.makeAppointment')."' class='btn btn-sm btn-success mb-1 ml-1 mr-1'>$time</a>";
+
+                              //already have appointment -color change 
+
+                              $user = Auth::user();
+                              $patient = $user->patient;
+
+
+
+
+
+                              $matchedDatenTime = App\Models\Appointment::where([
+                                ['patient_id','=',$patient->id],
+                                ['doctor_id','=',$doctor->id],
+                                ['dates','=',$workday->dates],
+                                ['time','=',$perticulardaytime->time],
+                              ]);
+
+                              
+
+                              if ($matchedDatenTime->count()) {
+                                echo '<form method="post" action="'.route('patient.makeAppointment',['makeAppointment'=>$doctor->id]).'">
+                                      <input type="hidden" name="doctor_id" value="'. $doctor->id .'"> 
+                                      <input type="hidden" name="dates" value="'. $workday->dates .'"> 
+                                      <input type="hidden" name="time" value="'. $perticulardaytime->time .'" > 
+                                      <input type="hidden" name="_token" value="'. csrf_token() .'" /> 
+                                      <input type="submit" value="'. $time .'" class="btn btn-sm btn-info mb-1 ml-1 mr-1">
+                                    </form>';
+                              } else {
+                                echo '<form method="post" action="'.route('patient.makeAppointment',['makeAppointment'=>$doctor->id]).'">
+                                      <input type="hidden" name="doctor_id" value="'. $doctor->id .'"> 
+                                      <input type="hidden" name="dates" value="'. $workday->dates .'"> 
+                                      <input type="hidden" name="time" value="'. $perticulardaytime->time .'" > 
+                                      <input type="hidden" name="_token" value="'. csrf_token() .'" /> 
+                                      <input type="submit" value="'. $time .'" class="btn btn-sm btn-success mb-1 ml-1 mr-1">
+                                    </form>';
+                              }
+                              
+
+
+
+
+                              
+                                    
                             }
                             $i++; //iterate to next day index.
 
                           @endphp
 
                       </td>
+                      
                     
+                      {{-- testing  --}}
+
+                      
+
+
                     </tr>
                     
                     @endforeach                      
@@ -76,9 +127,6 @@
               @else
                 <P>Doctor Has not Added New Schedule yet.</P>
               @endif
-              
-              
-
 
 
 

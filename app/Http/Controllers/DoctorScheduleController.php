@@ -116,7 +116,8 @@ class DoctorScheduleController extends Controller
      */
     public function show($id)
     {
-        //
+        $doctor = Doctor::findOrFail($id);
+        return \view('doctor.showSchedule',\compact('doctor'));
     }
 
     /**
@@ -150,6 +151,11 @@ class DoctorScheduleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // return "delete schedule";
+
+        $docSchedule = DoctorSchedule::findOrFail($id)->delete();
+        return redirect()->back();
+
+
     }
 }

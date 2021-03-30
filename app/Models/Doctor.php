@@ -82,6 +82,18 @@ class Doctor extends Model
 
 
 
+    /**
+     * Get all of the appointments for the Doctor
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+
+
 
 
 }
