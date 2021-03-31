@@ -41,6 +41,12 @@ class ProPhotoTableSeeder extends Seeder
             'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
         ],
+        
+        [
+            'path'=>'patient2.jpg',
+            'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
+        ],
 
         ]);
     }

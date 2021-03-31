@@ -23,7 +23,7 @@
                           <th scope="col">Date</th>
                           <th scope="col">Time</th>
                           
-                          <th scope="col">Status</th>
+                          <th scope="col" class="text-center">Status</th>
                           
                       </tr>
                           
@@ -40,11 +40,13 @@
                         <td>{{$appointment->doctor->office_location}}</td>
                         <td>{{\Carbon\Carbon::parse($appointment->dates)->isoFormat('ddd')}}</td>
                         <td>{{\Carbon\Carbon::parse($appointment->time)->isoFormat('h:mm A')}}</td>
-                        <td>
+                        <td class="text-center">
   
-                          @if ($appointment->visited == 1)
-                            <div class="btn btn-info">
-                              visited
+                          @if ($appointment->checking)
+                            <div>
+                              
+                              <a href="#" class="btn btn-info">view</a>
+
                             </div>                        
                           @else
                             <div class="btn btn-success">

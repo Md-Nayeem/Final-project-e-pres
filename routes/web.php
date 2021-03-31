@@ -64,11 +64,14 @@ Route::resource('user', App\Http\Controllers\UserCommonController::class)->middl
 // Only doctor -> prescription
 Route::resource('dc-pres', App\Http\Controllers\DoctorPrescriptionController::class)->middleware('doctor');
 
+
+
 Route::middleware(['doctor'])->prefix('dc-pres')->name('dc-pres.')->group(function(){
-   
+    
     // Route::resource('/', App\Http\Controllers\DoctorPrescriptionController::class);
     Route::post('find', [App\Http\Controllers\DoctorPrescriptionController::class, 'findPatient']);
     Route::post('checkdata', [App\Http\Controllers\DoctorPrescriptionController::class, 'checkstore'])->name('checkdata');
+    Route::post('post',[App\Http\Controllers\DoctorPrescriptionController::class,'ShowPrescriptionSystem'])->name('post');
     // Route::post('mypatientlist', [App\Http\Controllers\DoctorPrescriptionController::class, 'patientlist'])->name('patientlist');
 });
 
@@ -80,6 +83,14 @@ Route::post('patient/makeAppointment', [App\Http\Controllers\PatientMobBookingCo
 
 Route::get('patient/appointments/{appointments}', [App\Http\Controllers\PatientMobBookingController::class, 'viewMyAppointments'])->name('patient.appointments');
 // Route::get('doctor/')
+
+
+// Patient appointments + Prescription 
+Route::resource('patient-pres', App\Http\Controllers\PatientAppointmentPrescriptionController::class)->middleware('auth');
+
+Route::get('patient/prescriptionsList/{prescriptionsList}',[App\Http\Controllers\PatientAppointmentPrescriptionController::class,'prescriptionsList'])->name('patient.prescriptionsList')->middleware('auth');
+
+
 
 
 // confusion here!!!

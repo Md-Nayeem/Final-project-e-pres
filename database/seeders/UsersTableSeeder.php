@@ -88,10 +88,10 @@ class UsersTableSeeder extends Seeder
             ],
 
             [// id = 7
-                'name'=>'Rohim',
-                'email'=>'rohim@gmail.com',
+                'name'=>'Lucy',
+                'email'=>'lucy@gmail.com',
                 'phone'=>'01784521451',
-                'photo_id'=>'4',
+                'photo_id'=>'5',
                 'role_id'=>'4',
                 'password'=>$password,
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),

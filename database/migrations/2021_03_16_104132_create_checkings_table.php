@@ -16,7 +16,7 @@ class CreateCheckingsTable extends Migration
         Schema::create('checkings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('patient_id')->constrained('patients');
-            $table->foreignId('appoinment_id')->constrained('appointments');
+            $table->foreignId('appointment_id')->constrained('appointments');
             $table->decimal('BP_up',3,0);
             $table->decimal('BP_down',3,0);
             $table->char('Heart_rate',3);

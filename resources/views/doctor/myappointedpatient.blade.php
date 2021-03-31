@@ -23,13 +23,13 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0"> {{-- Here the table size can be adjusted --}}
-            @if ($users->count())
+            @if ($appointments->count())
             <table class="table table-head-fixed text-nowrap">
               <thead>
                 
                 <tr>
                     <th scope="col" colspan="5" class="bg-info">Personal</th>
-                    <th scope="col" colspan="2" class="bg-warning">Others</th>
+                    <th scope="col" colspan="4" class="bg-warning">Others</th>
 
                     {{-- <th colspan="3">Weight</th>
                     <th>Volume</th> --}}
@@ -42,7 +42,11 @@
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
 
-                    <th>Booked at</th>
+                    {{-- <th scope="col">Appointment Id</th> --}}
+                    <th scope="col">date</th>
+                    <th scope="col">time</th>
+
+                    <th>Booked</th>
                     <th>Action</th>
                     
                 </tr>
@@ -50,11 +54,42 @@
               </thead>
               <tbody>
                 
-                  @foreach ($users as $user)
+                  @foreach ($appointments as $appointment)
                 
                   @php
                     //To use the eloquent methods re-initiating user again
-                    $user = App\Models\User::find($user->id);
+                    $appointment = App\Models\Appointment::findOrFail($appointment->id);
+
+
+
+
+                    //patient user
+                    $patient = $appointment->patient;
+
+
+                    // user info of the patient
+                    $user = App\Models\User::findOrFail($patient->user_id);
+
+
+                    // $appointment = App\Models\Appointment::where('patient_id','=',$user->patient->id)->where('dates','>=',$todayNow)->first();
+                    
+                    // $user = App\Models\User::where('patient_id','=',$user->patient->id)->where('dates','>=',$todayNow)->first();
+
+
+                    
+                    // $user = App\Models\User::find($user->id);
+                    //find the appointment id
+
+                    
+                    //from the doc user
+                    // $doc_user = Auth::user()
+                    // $doc_user->doctor->appointments->where('patient_id','=',$patientx->patient->id)->where('dates','>',$todayNow)->first();
+
+
+
+
+
+
                   @endphp
 
                   <tr class="text-justified">
@@ -63,9 +98,16 @@
                       <img height="50px" class="rounded" src="/img/profile/{{$user->profilePhoto ? $user->profilePhoto->path : 'doctor.png'}}" alt="user's profile picture">
                     </td>
                     <td>{{$user->name}}</td>
-                    <td>{{$user->patient->age}}</td>
+                    <td>{{$patient->age}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->phone}}</td>
+
+                    {{-- <td>{{$appointment->id}}</td> --}}
+                    <td>{{\Carbon\Carbon::parse($appointment->dates)->isoFormat('MMM Do')}}</td>
+                    <td>{{\Carbon\Carbon::parse($appointment->time)->isoFormat('h:mm A')}}</td>
+
+
+
                     {{-- <td>{{$user->role ? $user->role->name : 'Not assigned' }}</td> Edit This --}}
                    
                    
@@ -80,7 +122,19 @@
 
                       {{-- It should be a form with a hidden value --}}
 
-                      <a class=" btn btn-success" href="{{route('dc-pres.show',['dc_pre'=>$user->id])}}">Prescribe</a>
+                      <form method="post" action="{{route('dc-pres.post')}}">
+                        @csrf
+                        <input type="hidden" name="patient_user_id" value="{{$user->id}}"> 
+                        <input type="hidden" name="appointment_id" value="{{$appointment->id}}"> 
+                        
+                        @if ($appointment->checking)
+                          <a href="" class="btn btn-success" >Show</a>
+                        @else
+                          <input type="submit" value="Prescribe" class="btn btn-primary mx-1">
+                        @endif
+                      </form>
+
+                      {{-- <a class=" btn btn-success" href="{{route('dc-pres.show',['dc_pre'=>$user->id])}}">Old Prescribe</a> --}}
                     </td>
                     {{-- <td>{{$user->updated_at->diffForHumans()}}</td> --}}
                   </tr>

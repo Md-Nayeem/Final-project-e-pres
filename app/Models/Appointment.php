@@ -28,6 +28,28 @@ class Appointment extends Model
     {
         return $this->belongsTo(Doctor::class);
     }
+
+
+    /**
+     * Get the checking associated with the Appointment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function checking()
+    {
+        return $this->hasOne(Checking::class);
+    }
+
+
+    /**
+     * Get the patient that owns the Appointment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
     
 
 

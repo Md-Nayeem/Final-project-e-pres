@@ -181,6 +181,7 @@
                       @if (!Session::has('checking_id'))
                         <form method="POST" action="{{route('dc-pres.checkdata')}}" >
                           @csrf
+                          <input type="hidden" name="appointment_id" value="{{$appointment_id}}">
                           <div class="form-row">
                             <div class="form-group col-md-4 mx-auto">
                               <input type="text" hidden name="patient_id" id="patient_id" value="{{$patient->patient->id}}">
@@ -242,6 +243,8 @@
                         </div> --}}
                         <input type="hidden" name="patient_id" value="{{$patient->patient->id}}">
                         @csrf
+                        <input type="hidden" name="appointment_id" value="{{$appointment_id}}">
+                        {{-- <p>The appointment id is {{$appointment_id}}</p> --}}
                         <div class="form-group">
                           <label for="disease">Disease</label>
                           <input type="text" class="form-control" id="disease" name="disease" required >
