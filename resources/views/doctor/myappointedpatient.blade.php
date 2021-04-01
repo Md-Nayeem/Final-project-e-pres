@@ -99,7 +99,7 @@
                         <input type="hidden" name="appointment_id" value="{{$appointment->id}}"> 
                         
                         @if ($appointment->checking)
-                          <a href="" class="btn btn-success" >Show</a>
+                          <a href="{{route('dc-pres.show',['dc_pre'=>$appointment->checking->prescription->id])}}" class="btn btn-success" >Show</a>
                         @else
                           <input type="submit" value="Prescribe" class="btn btn-primary mx-1">
                         @endif

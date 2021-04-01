@@ -60,13 +60,18 @@
 
                       @foreach ($oldprescriptionData as $oldpres)
                         <div class="card bg-light">
-                          <div class="card-header">
-                            <h6 class="card-title">Issue Date: {{$oldpres->created_at->toFormattedDateString()}} | <span class="font-italic"> Disease: {{$oldpres->disease}}</span></h6> 
+                          @if ($oldpres->doctor->user->id == Auth::user()->id )                             
+                            <div class="card-header bg-primary">
+                              <h6 class="card-title">Issue Date: {{$oldpres->created_at->toFormattedDateString()}} | <span class="font-italic"> Disease: {{$oldpres->disease}}</span></h6> 
+                          @else
+                            <div class="card-header bg-info">
+                              <h6 class="card-title">Issue Date: {{$oldpres->created_at->toFormattedDateString()}} | <span class="font-italic"> Disease: {{$oldpres->disease}}</span> | <span> Dr: {{$oldpres->doctor->user->name}}</span></h6> 
+                          @endif
                             <div class="card-tools">
-                              <button type="button" class="btn text-success btn-tool" aria-expanded="false" data-card-widget="collapse">
+                              <button type="button" class="btn btn-tool" aria-expanded="false" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                               </button>
-                              <button type="button" class="btn text-danger btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
                               </button>
                             </div>
                           </div>

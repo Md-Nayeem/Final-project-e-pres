@@ -21,6 +21,7 @@ class CreatePrescriptionsTable extends Migration
             $table->text('disease');
             $table->text('symptoms');
             $table->text('procedure');
+            $table->boolean('private')->default('1');
             $table->date('end_date');
             $table->date('next_visit');
             $table->timestamps();

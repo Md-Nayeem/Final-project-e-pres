@@ -88,6 +88,8 @@ Route::get('patient/appointments/{appointments}', [App\Http\Controllers\PatientM
 // Patient appointments + Prescription 
 Route::resource('patient-pres', App\Http\Controllers\PatientAppointmentPrescriptionController::class)->middleware('auth');
 
+// Route::patch('patient-pres/updatePrivacy/{updatePrivacy}',[App\Http\Controllers\PatientAppointmentPrescriptionController::class,'updatePrivacy'])->name('patient.updatePrivacy')->middleware('auth');
+
 Route::get('patient/prescriptionsList/{prescriptionsList}',[App\Http\Controllers\PatientAppointmentPrescriptionController::class,'prescriptionsList'])->name('patient.prescriptionsList')->middleware('auth');
 
 

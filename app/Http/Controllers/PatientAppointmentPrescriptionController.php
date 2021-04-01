@@ -109,6 +109,7 @@ class PatientAppointmentPrescriptionController extends Controller
 
         $oldprescriptionData = Prescription::select('*')
         ->where('patient_id','=',$patient->id)
+        // ->orderBy('id','desc')
         ->get();
 
         // dd($oldprescriptionData);
@@ -156,8 +157,26 @@ class PatientAppointmentPrescriptionController extends Controller
      */
     public function edit($id)
     {
+
+        //Here Id = prescription id
+        
+        // return "THe id that will be updated is this...".$id;
+
+
+        $prescription = Prescription::findOrFail($id);
+        
+        //Tarnary operator
+        $prescription->private = $prescription->private == 1 ? 0 : 1;
+        
+        $prescription->update(['private'=>$prescription->private]);
+        
+        return \redirect()->back();
+
         //
     }
+
+
+
 
     /**
      * Update the specified resource in storage.

@@ -25,9 +25,17 @@
                 <div class="card-body collapse">
                   <div class="row">
                     <div class="col-md-6">
-                      <h3>Pres info</h3>
-                      <h4>Disease: {{$oldpres->disease}}</h4>
-                      <h4>Symptoms: {{$oldpres->symptoms}}</h4>
+                      <h3>By: {{$oldpres->doctor->user->name}} | {{$oldpres->doctor->department->name}}</h3>
+                      <h3>Pres info 
+                        @if ($oldpres->private == 1)
+                        <a class="btn btn-info float-right"  href="{{route('patient-pres.edit',['patient_pre'=>$oldpres->id])}}">Make Public</a>
+                        @else
+                        <a class="btn btn-success float-right" href="{{route('patient-pres.edit',['patient_pre'=>$oldpres->id])}}">Make Private</a>
+                        @endif
+                      
+                      </h3>
+                      <h5>Disease: {{$oldpres->disease}}</h5>
+                      <h5>Symptoms: {{$oldpres->symptoms}}</h5>
                       
                     </div>
                     <div class="col-md-6">

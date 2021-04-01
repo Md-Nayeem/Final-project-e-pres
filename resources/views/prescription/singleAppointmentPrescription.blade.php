@@ -1,14 +1,12 @@
-@extends('layouts.mob')
-
+@extends('layouts.solution')
 @section('content')
-  <section class="content pt-5">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-4 col-md-6 col-lg-8">
- 
-                
-          {{-- Patient test | Medicine | Next visit time --}}
-          @if ($singlePresdata->count())
+<section class="content pt-4">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+
+
+        @if ($singlePresdata->count())
 
             <div class="card bg-light">
               <div class="card-header">
@@ -18,10 +16,27 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-6">
-                    <h3>By: {{$singlePresdata->doctor->user->name}} | {{$singlePresdata->doctor->department->name}}</h3>
+                    @php
+                        $patientUser = App\Models\User::findOrFail($singlePresdata->patient->user_id)
+                    @endphp
+                    <h3>Patient Info</h3>
+                    <h4>Name: {{$patientUser->name}}</h4>
+                    <h4>Age: {{$singlePresdata->patient->age}}</h4>
+                    <h4>Email: {{$patientUser->email}}</h4>
+                    <h4>Phone: {{$patientUser->phone}}</h4>                    
+                  </div>
+                  <div class="col-md-6">
+                    <img src="/img/profile/{{$patientUser->profilePhoto ? $patientUser->profilePhoto->path : 'anonymous.jpg'}}" height="150px" width="150px" alt="patient's profile picture" class="img-rounded" alt="patient Image">
+                  </div>
+                </div>
+
+                <hr>
+                
+                <div class="row">
+                  <div class="col-md-6">
                     <h3>Pres info</h3>
-                    <h5>Disease: {{$singlePresdata->disease}}</h5>
-                    <h5>Symptoms: {{$singlePresdata->symptoms}}</h5>
+                    <h4>Disease: {{$singlePresdata->disease}}</h4>
+                    <h4>Symptoms: {{$singlePresdata->symptoms}}</h4>
                     
                   </div>
                   <div class="col-md-6">
@@ -32,8 +47,8 @@
                     <p>Heart rate: {{$singlePresdata->checking->Heart_rate}}</p>
                   </div>
                 </div>
-                <hr class="hr_medi_info">
-                <div class="row mx-auto ">
+                <hr>
+                <div class="row mx-auto mt-4">
                   <h4 class="mx-auto">Medicines</h4>
                     @php
                       //collection of the medicines under same pres
@@ -65,8 +80,8 @@
                         </tbody>
                       </table>
                 </div>
-                <hr class="hr_medi_info">
-                <div class="row">
+                <hr>
+                <div class="row mt-4">
                   <div class="col-md-10 mx-auto text-center">
                     <h4 class="mx-auto">Test</h4>
                     @php
@@ -91,39 +106,17 @@
                           <td>{{$test->test_name}}</td>
 
 
-                          
-
-                          {{-- <td>{{$test->test_report_file_id ? 'file exists' : 'Not Uploaded'}}</td> --}}
+                        
                           <td>
                             @if ($test->testReport)
-                          
-                            {{-- <a href="#" class="btn btn-sm btn-danger" >Del</a> --}}
-                            
-                            <form method="post" action="/patient-pres/{{$test->testReport->id}}">
                               <a href="/img/test/{{$test->testReport ? $test->testReport->path : 'doctor.png'}}" class="btn btn-success btn-sm">view</a>
-                              <input type="hidden" name="_method" value="DELETE"> 
-                              @csrf
-                              <input type="submit" value="Del" class="btn btn-sm btn-danger">
-                            </form>
-
-
-                          
                             @else
-                            {{-- {!! Form::open(['method'=>'POST', 'action' => 'App\Http\Controllers\PatientAppointmentPrescriptionController@store', 'files' => true]) !!} --}}
-                            {!! Form::model($test,['route' => ['patient-pres.update', $test->id] , 'method'=>'PATCH',  'files' => true]) !!}
-                            <div class='form-group text center'>
-
-                              {{-- {!! Form::label('photo_id', 'Photo: ')!!} --}}
-                              {{-- {!! Form::hidden('test_id',$test->id)!!} --}}
-
-                              {!! Form::file('photo_id',['class'=>'custom-control w-75 mx-auto'])!!}
-                            </div>
-                            <div class='text-center'>
-                              {!! Form::submit('Upload',['class'=>'btn btn-primary btn-sm'])!!}
-                            </div>
-                            {!!Form::close()!!}
-                              
+                              <p>Not uploaded</p>    
                             @endif
+
+                            
+
+
                           </td>
                           
 
@@ -153,8 +146,13 @@
             @endphp
           @endif
 
-        </div>
+
+
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+
+
 @endsection

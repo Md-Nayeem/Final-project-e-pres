@@ -56,5 +56,31 @@ class Prescription extends Model
         return $this->hasMany(MedicalTest::class);
     }
 
+    /**
+     * Get the patient that owns the Prescription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
+
+    /**
+     * Get the doctor that owns the Prescription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+
+
+
+
+
+
 
 }

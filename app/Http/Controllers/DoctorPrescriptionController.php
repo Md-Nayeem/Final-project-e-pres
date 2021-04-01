@@ -300,55 +300,19 @@ class DoctorPrescriptionController extends Controller
      */
     public function show($id)
     {
-    //     $user_arr = User::where('id',$id)->get();
-
-
-
-
-
-
-    //     // NEED FIXING
-    // // $user_medicine_info = 
-    // // $user_test_info =
-
-    //     $doctor = Doctor::where('user_id',Auth::user()->id)->get();
-    //     // dd($doctor[0]);
-
-
-    //     //THis is the user
-    //     $patient = $user_arr[0];
         
-    //     // return $patient->patient->id;
-
-    //     // return $patient->id;
-
-    //     // dd($user);
+        // $appointment = Appointment::find($id);
+        // $singlePresdata = $appointment->checking->prescription;
 
 
-    //     // Checking to the prescription
-
-    //     // $patientChecking = Checking::where('patient_id',$patient->id)->get();
+        $singlePresdata = Prescription::findOrFail($id);
 
 
-        
 
-    //     $oldprescriptionData = Prescription::select('*')
-    //     ->where('patient_id','=',$patient->patient->id)
-    //     ->where('doctor_id','=',$doctor[0]->id)
-    //     ->get();
+        // dd($singlePresdata);
 
-        
-
-    //     // $medicines = $oldprescriptionData[0]->medicine[0]->medicine_name;
-
-    //     // dd($medicines);
-
-    //     // dd($oldprescriptionData);
-
-
-    //     return \view('prescription.index',\compact('patient','oldprescriptionData'));
-
-    //     // return view('')
+        // return view('patient.singlePrescription',\compact('singlePresdata'));
+        return view('prescription.singleAppointmentPrescription',\compact('singlePresdata'));
 
 
 
@@ -358,8 +322,6 @@ class DoctorPrescriptionController extends Controller
     public function ShowPrescriptionSystem(Request $request){
         
         // dd($request);
-        
-
 
         $user_arr = User::where('id',$request->patient_user_id)->get();
 
@@ -374,16 +336,15 @@ class DoctorPrescriptionController extends Controller
         $patient = $user_arr[0];
         
 
+        //Prescription from all doctor when public
         $oldprescriptionData = Prescription::select('*')
         ->where('patient_id','=',$patient->patient->id)
+        ->where('private',0)
+        ->orWhere('patient_id','=',$patient->patient->id)
         ->where('doctor_id','=',$doctor[0]->id)
         ->get();
 
-
-
         return \view('prescription.index',\compact('patient','oldprescriptionData','appointment_id'));
-
-
 
     }
 

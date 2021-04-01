@@ -5,3 +5,10 @@
     color: gray;
     background-color: gray;
 }
+.hr_medi_info_full {
+    /* width: 30%; */
+    height: 2px;
+    border-width: 0;
+    color: gray;
+    background-color: gray;
+}
