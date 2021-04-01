@@ -26,6 +26,11 @@
   {{-- Custom CSS --}}
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
+  {{-- The Extra calender --}}
+
+  <link rel="stylesheet" href="{{ asset('css/dycalendar.min.css') }}">
+
+
   <!-- Select2 -->
   <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
@@ -482,6 +487,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     @yield('content')
+    
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -509,8 +515,10 @@
 {{-- <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script> --}}
+<script src="{{ asset('js/dycalendar-jquery.min.js') }}"></script>
 
 @yield('script')
+
 
 
 <!-- Bootstrap 4 -->

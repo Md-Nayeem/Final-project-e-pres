@@ -1,15 +1,15 @@
 @extends('layouts.solution')
 
 @section('content')
-<section class="content mt-4">
+<section class="content pt-4">
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">All Staff Info</h3>
+            <h3 class="card-title">Appointments</h3>
     
-            <div class="card-tools">
+            {{-- <div class="card-tools">
               <div class="input-group input-group-sm" style="width: 150px;">
                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
     
@@ -19,7 +19,8 @@
                   </button>
                 </div>
               </div>
-            </div>
+            </div> --}}
+          
           </div>
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0"> {{-- Here the table size can be adjusted --}}
@@ -70,26 +71,6 @@
                     // user info of the patient
                     $user = App\Models\User::findOrFail($patient->user_id);
 
-
-                    // $appointment = App\Models\Appointment::where('patient_id','=',$user->patient->id)->where('dates','>=',$todayNow)->first();
-                    
-                    // $user = App\Models\User::where('patient_id','=',$user->patient->id)->where('dates','>=',$todayNow)->first();
-
-
-                    
-                    // $user = App\Models\User::find($user->id);
-                    //find the appointment id
-
-                    
-                    //from the doc user
-                    // $doc_user = Auth::user()
-                    // $doc_user->doctor->appointments->where('patient_id','=',$patientx->patient->id)->where('dates','>',$todayNow)->first();
-
-
-
-
-
-
                   @endphp
 
                   <tr class="text-justified">
@@ -106,16 +87,6 @@
                     <td>{{\Carbon\Carbon::parse($appointment->dates)->isoFormat('MMM Do')}}</td>
                     <td>{{\Carbon\Carbon::parse($appointment->time)->isoFormat('h:mm A')}}</td>
 
-
-
-                    {{-- <td>{{$user->role ? $user->role->name : 'Not assigned' }}</td> Edit This --}}
-                   
-                   
-                    {{-- <td>{{$user->staff->qualification}}</td> --}}
-                    {{-- <td>{{$user->staff->experience}}</td> --}}
-                    
-
-                    {{-- <td>{{$user->is_active == 1 ? 'Active' : 'Not Active'}}</td> --}}
                     <td>{{$user->created_at->diffForHumans()}}</td>{{-- Using carbon class --}}
                     <td>
                       {{-- Here will be logic according to the appointment table showing Prescribe status --}}
@@ -139,12 +110,11 @@
                     {{-- <td>{{$user->updated_at->diffForHumans()}}</td> --}}
                   </tr>
                   @endforeach  
-                
-                  
+                     
                 </tbody>
               </table>
               @else
-                <p class="text-center mt-2 text-secondary">Their is no Staff.</p>
+                <p class="text-center mt-2 text-secondary">No patient has booked appointment</p>
               @endif
           </div>
           <!-- /.card-body -->

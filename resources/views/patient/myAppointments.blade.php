@@ -45,8 +45,9 @@
                           @if ($appointment->checking)
                             <div>
                               
-                              <a href="#" class="btn btn-info">view</a>
-
+                              {{-- <a href="#" class="btn btn-info">view</a> --}}
+                              <a class="btn btn-info" href="{{route('patient-pres.show',['patient_pre'=>$appointment->id])}}">view</a>
+                              
                             </div>                        
                           @else
                             <div class="btn btn-success">

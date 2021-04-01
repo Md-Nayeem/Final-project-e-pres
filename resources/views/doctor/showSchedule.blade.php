@@ -109,8 +109,48 @@
           <!-- /.card-body -->
         </div>
         <!-- /.card -->
+
+          
       </div>
+
+      <div class="col-md-6">
+        <div class="some-class">
+          <h1>Today calendar (skin-black shadow-default)</h1>
+          <div class="calendar-container text-center">
+            <div id="dycalendar-today-with-skin-shadow" class="dycalendar-container shadow-default "></div>
+          </div>
+        </div>
+      </div>
+
+
+
     </div>
   </div>
 </section>
+
+
+
+
+
+
+
 @endsection
+
+@section('script')
+  
+  <script>
+    dycalendar.draw({
+      target: '#dycalendar-today-with-skin-shadow',
+      type: 'month',
+      monthformat : 'full',
+      highlighttoday: true,
+      prevnextbutton: 'show'
+    });
+  </script>
+
+
+@endsection
+
+
+
+

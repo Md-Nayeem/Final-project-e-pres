@@ -167,7 +167,7 @@
                           
                     
                     @else
-                      <p class="text-center mt-2 text-secondary">Your Have Not Prescribes this patient before.</p>
+                      <p class="text-center mt-2 text-secondary">Your have not prescribed this patient before.</p>
                     @endif
 
 
@@ -210,8 +210,30 @@
                             <button type="submit" class="btn btn-primary w-50">Add</button>
                           </div>   
                         </form>
+                      @else
+                        
+                        
+                        <div class="col-md-8">
+                          <h3>Checkup Info</h3>
+                          <div class="row">
+                            <div class="col">
+                              <p>Bp Up: {{$checking->BP_up}}</p>
+                              <p>Bp Down: {{$checking->BP_down}}</p>
+                            </div>
+                            <div class="col">
+                              <p>Breathing status: {{$checking->Breathing_status}}</p>
+                              <p>Heart rate: {{$checking->Heart_rate}}</p>
+                            </div>
+                          </div>
+                          
+                          
+                        </div>
+                        
+                      
                       @endif
-                      <p>There is checking session here.</p>
+
+                      
+
 
 
                       

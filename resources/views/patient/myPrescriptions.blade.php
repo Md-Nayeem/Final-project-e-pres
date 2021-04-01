@@ -96,7 +96,32 @@
                             <th scope="row">{{$testnum}}</th>
                             <td>{{$test->test_name}}</td>
 
-                            <td>{{$test->test_report_file_id ? 'file exists' : 'Not Uploaded'}}</td>
+                            <td>
+                              @if ($test->testReport)
+                            
+                              
+                              <form method="post" action="/patient-pres/{{$test->testReport->id}}">
+                                <a href="/img/test/{{$test->testReport ? $test->testReport->path : 'doctor.png'}}" class="btn btn-success btn-sm">view</a>
+                                <input type="hidden" name="_method" value="DELETE"> 
+                                @csrf
+                                <input type="submit" value="Del" class="btn btn-sm btn-danger">
+                              </form>
+
+
+                            
+                              @else
+                              {!! Form::model($test,['route' => ['patient-pres.update', $test->id] , 'method'=>'PATCH',  'files' => true]) !!}
+                              <div class='form-group text center'>
+
+                                {!! Form::file('photo_id',['class'=>'custom-control w-75 mx-auto'])!!}
+                              </div>
+                              <div class='text-center'>
+                                {!! Form::submit('Upload',['class'=>'btn btn-primary btn-sm'])!!}
+                              </div>
+                              {!!Form::close()!!}
+                                
+                              @endif
+                            </td>
 
 
                           </tr>
@@ -119,7 +144,7 @@
                 
           
           @else
-            <p class="text-center mt-2 text-secondary">Your Have Not Prescribes this patient before.</p>
+            <p class="text-center mt-2 text-secondary">Your have no prescription.</p>
           @endif
 
         </div>

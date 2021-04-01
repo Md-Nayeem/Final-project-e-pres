@@ -12,6 +12,8 @@ use App\Models\ProfilePhoto;
 use App\Models\Doctor;
 use App\Models\Department;
 use App\Models\District;
+use App\Models\Checking;
+use App\Models\Appointment;
 use App\Models\Shift;
 use App\Models\Admin;
 use App\Http\Requests\FromCreateAdmin;
@@ -29,6 +31,13 @@ class AdminUsersController extends Controller
 
         $users = User::all();
 
+
+
+
+        //Patients appointments.
+        // $appointmentNumberTotal = Appointment::count();
+
+        // dd($appointmentNumberTotal);
 
 
         // $shift = Shift::pluck('name','id')->all();

@@ -14,4 +14,20 @@ class MedicalTest extends Model
         'prescription_id',
         'test_report_file_id',
     ];
+
+    /**
+     * Get the testreport associated with the MedicalTest
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function testReport()
+    {
+        return $this->belongsTo(TestReport::class, 'test_report_file_id');
+    }
+
+
+    
+
+
+
 }

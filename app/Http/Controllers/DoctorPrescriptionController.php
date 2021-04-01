@@ -167,7 +167,7 @@ class DoctorPrescriptionController extends Controller
         // Testing
 
         // return \redirect()->route('prescription.index',[$patient,$oldprescriptionData,$appointment_id]);
-        return \view('prescription.index',\compact('patient','oldprescriptionData','appointment_id'));
+        return \view('prescription.index',\compact('patient','oldprescriptionData','appointment_id','checking'));
 
 
         // return \view('prescription.index',\compact('patient','oldprescriptionData','appointment_id'));
