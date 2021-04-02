@@ -19,13 +19,23 @@
                 <div class="row">
                   <div class="col-md-6">
                     <h3>By: {{$singlePresdata->doctor->user->name}} | {{$singlePresdata->doctor->department->name}}</h3>
-                    <h3>Pres info</h3>
+                    <h4>Pres info  
+                      
+                    
+                      @if ($singlePresdata->private == 1)
+                        <a class="btn btn-primary float-right ml-2 btn-sm" href="{{ route('patient-pres.createPDF',['createPDF'=>$singlePresdata->id]) }}">Export to PDF</a> <a class="btn btn-warning btn-sm float-right"  href="{{route('patient-pres.edit',['patient_pre'=>$singlePresdata->id])}}">Make Public</a>
+                        @else
+                        <a class="btn btn-primary float-right ml-2 btn-sm" href="{{ route('patient-pres.createPDF',['createPDF'=>$singlePresdata->id]) }}">Export to PDF</a> <a class="btn btn-success btn-sm float-right"  href="{{route('patient-pres.edit',['patient_pre'=>$singlePresdata->id])}}">Make Private</a>
+                      @endif
+
+
+                    </h4>
                     <h5>Disease: {{$singlePresdata->disease}}</h5>
                     <h5>Symptoms: {{$singlePresdata->symptoms}}</h5>
                     
                   </div>
                   <div class="col-md-6">
-                    <h3>Checkup Info</h3>
+                    <h4>Checkup Info</h4>
                     <p>Bp Up: {{$singlePresdata->checking->BP_up}}</p>
                     <p>Bp Down: {{$singlePresdata->checking->BP_down}}</p>
                     <p>Breathing status: {{$singlePresdata->checking->Breathing_status}}</p>
@@ -64,6 +74,10 @@
                           @endforeach
                         </tbody>
                       </table>
+                </div>
+                <div class="row">
+                  <h5 class="">Procedure: &nbsp;</h5> <br>
+                  <p> <q> {{$singlePresdata->procedure}} </q></p>
                 </div>
                 <hr class="hr_medi_info">
                 <div class="row">

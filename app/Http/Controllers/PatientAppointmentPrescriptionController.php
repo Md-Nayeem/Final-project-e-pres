@@ -21,6 +21,7 @@ use App\Models\Department;
 use App\Models\District;
 use App\Models\Appointment;
 use App\Models\TestReport;
+use PDF; 
 
 class PatientAppointmentPrescriptionController extends Controller
 {
@@ -141,13 +142,43 @@ class PatientAppointmentPrescriptionController extends Controller
         return view('patient.singlePrescription',\compact('singlePresdata'));
 
 
+    }
 
 
+    public function CreatePDF($id){
+
+        //all data from the db 
+        // $appointment = Appointment::find($id);
+        $singlePresdata = Prescription::findOrFail($id);
+
+        // dd($singlePresdata);
+        //share data to view 
+        /* view()->share('singlePresdata',$singlePresdata);
+
+            // below, first parameter is the view that will be converted, second is the value it will show.
+        $pdf = PDF::loadView('patient.singlePrescription', ['singlePresdata'=> $singlePresdata]);
+
+        //download pdf file with pdf view
+        return $pdf->download('pdf_file.pdf'); */
+
+
+
+        // Testing
+
+        $user = User::findOrFail(1);
+
+        $pdf = PDF::loadView('patient.presPDF',['singlePresdata'=>$singlePresdata]);
+        return $pdf->download('presPDF.pdf');
         
-        // dd($id);
 
 
     }
+
+
+
+
+
+
 
     /**
      * Show the form for editing the specified resource.

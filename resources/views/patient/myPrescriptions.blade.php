@@ -28,11 +28,10 @@
                       <h3>By: {{$oldpres->doctor->user->name}} | {{$oldpres->doctor->department->name}}</h3>
                       <h3>Pres info 
                         @if ($oldpres->private == 1)
-                        <a class="btn btn-info float-right"  href="{{route('patient-pres.edit',['patient_pre'=>$oldpres->id])}}">Make Public</a>
+                        <a class="btn btn-primary float-right ml-2 btn-sm" href="{{ route('patient-pres.createPDF',['createPDF'=>$oldpres->id]) }}">Export to PDF</a> <a class="btn btn-warning float-right btn-sm"  href="{{route('patient-pres.edit',['patient_pre'=>$oldpres->id])}}">Make Public</a>
                         @else
-                        <a class="btn btn-success float-right" href="{{route('patient-pres.edit',['patient_pre'=>$oldpres->id])}}">Make Private</a>
+                        <a class="btn btn-primary float-right ml-2 btn-sm" href="{{ route('patient-pres.createPDF',['createPDF'=>$oldpres->id]) }}">Export to PDF</a> <a class="btn btn-success float-right btn-sm" href="{{route('patient-pres.edit',['patient_pre'=>$oldpres->id])}}">Make Private</a>
                         @endif
-                      
                       </h3>
                       <h5>Disease: {{$oldpres->disease}}</h5>
                       <h5>Symptoms: {{$oldpres->symptoms}}</h5>
@@ -78,6 +77,10 @@
                             @endforeach
                           </tbody>
                         </table>
+                  </div>
+                  <div class="row">
+                    <h5 class="">Procedure: &nbsp;</h5> <br>
+                    <p> <q> {{$oldpres->procedure}} </q></p>
                   </div>
                   <hr class="hr_medi_info">
                   <div class="row">

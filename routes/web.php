@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminUsersController;
+// use PDF;  //testing
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +88,9 @@ Route::get('patient/appointments/{appointments}', [App\Http\Controllers\PatientM
 
 // Patient appointments + Prescription 
 Route::resource('patient-pres', App\Http\Controllers\PatientAppointmentPrescriptionController::class)->middleware('auth');
+
+// Pres PDF 
+Route::get('patient-pres/createPDF/{createPDF}',[App\Http\Controllers\PatientAppointmentPrescriptionController::class,'CreatePDF'])->name('patient-pres.createPDF')->middleware('auth');
 
 // Route::patch('patient-pres/updatePrivacy/{updatePrivacy}',[App\Http\Controllers\PatientAppointmentPrescriptionController::class,'updatePrivacy'])->name('patient.updatePrivacy')->middleware('auth');
 
