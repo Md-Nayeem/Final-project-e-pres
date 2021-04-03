@@ -7,19 +7,9 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Appointments</h3>
+            <h3 class="card-title">The Booked patient list</h3>
     
-            {{-- <div class="card-tools">
-              <div class="input-group input-group-sm" style="width: 150px;">
-                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-    
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-default">
-                    <i class="fas fa-search"></i>
-                  </button>
-                </div>
-              </div>
-            </div> --}}
+
           
           </div>
           <!-- /.card-header -->
@@ -30,7 +20,7 @@
                 
                 <tr>
                     <th scope="col" colspan="5" class="bg-info">Personal</th>
-                    <th scope="col" colspan="5" class="bg-warning">Others</th>
+                    <th scope="col" colspan="4" class="bg-warning">Others</th>
 
                     {{-- <th colspan="3">Weight</th>
                     <th>Volume</th> --}}
@@ -47,8 +37,7 @@
                     <th scope="col">date</th>
                     <th scope="col">time</th>
 
-                    <th>Booked</th>
-                    <th>Status</th>
+                    <th>status</th>
                     <th>Action</th>
                     
                 </tr>
@@ -88,39 +77,9 @@
                     <td>{{\Carbon\Carbon::parse($appointment->dates)->isoFormat('MMM Do')}}</td>
                     <td>{{\Carbon\Carbon::parse($appointment->time)->isoFormat('h:mm A')}}</td>
 
-                    <td>{{$appointment->created_at->diffForHumans()}}</td>{{-- Using carbon class --}}
-                    {{-- <td class="   {{$appointment->visited == 0 ? 'table-warning' : 'table-success'}}   " >  {{$appointment->visited == 0 ? 'not visited' : 'visited'}}  </td> --}}
-                    {{-- <td> --}}
-
-                    {{-- The status column --}}
-                    @if ($appointment->checking)
-                      <td class="table-success">
-                        Confirmed
-                      </td>
-                    @else
-                      <td class="table-warning">
-                        Waiting
-                      </td>
-                    @endif
-                    {{-- </td> --}}
+                    <td class="   {{$appointment->visited == 0 ? 'table-warning' : 'table-success'}}   " >  {{$appointment->visited == 0 ? 'not visited' : 'visited'}}  </td>{{-- Using carbon class --}}
                     <td>
-                      {{-- Here will be logic according to the appointment table showing Prescribe status --}}
-
-                      {{-- It should be a form with a hidden value --}}
-
-                      <form method="post" action="{{route('dc-pres.post')}}">
-                        @csrf
-                        <input type="hidden" name="patient_user_id" value="{{$user->id}}"> 
-                        <input type="hidden" name="appointment_id" value="{{$appointment->id}}"> 
-                        
-                        @if ($appointment->checking)
-                          <a href="{{route('dc-pres.show',['dc_pre'=>$appointment->checking->prescription->id])}}" class="btn btn-success" >Show</a>
-                        @else
-                          <input type="submit" value="Prescribe" class="btn btn-primary mx-1">
-                        @endif
-                      </form>
-
-                      {{-- <a class=" btn btn-success" href="{{route('dc-pres.show',['dc_pre'=>$user->id])}}">Old Prescribe</a> --}}
+                      <a href="{{route('st-ap.visitedStatus',['visitedStatus'=>$appointment->id])}}" class="btn btn-info"> Change </a>
                     </td>
                     {{-- <td>{{$user->updated_at->diffForHumans()}}</td> --}}
                   </tr>

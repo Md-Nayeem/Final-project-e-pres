@@ -453,7 +453,17 @@
           @endif
           
           
-          
+          @if ($currentUser->role->name == 'Staff')
+            
+            <li class="nav-item">
+              <a href="{{route('st-ap.index')}}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Booking
+                </p>
+              </a>
+            </li>
+          @endif
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -463,6 +473,9 @@
               </p>
             </a>
           </li>
+          
+          
+          
           <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
               onclick="event.preventDefault();

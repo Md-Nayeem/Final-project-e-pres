@@ -110,3 +110,8 @@ Route::resource('dc-schedule', App\Http\Controllers\DoctorScheduleController::cl
 // Route::view('doctor/schedule/{schedule}', [App\Http\Controllers\PatientMobBookingController::class, 'showMySchedule'])->name('doctor.schedule');
 // Route::get('')
 
+
+Route::resource('st-ap', App\Http\Controllers\StaffAppointmentPaymentController::class)->middleware('staff');
+Route::get('st-ap/visitedStatus/{visitedStatus}', [App\Http\Controllers\StaffAppointmentPaymentController::class,'changeVisitedStatus'])->middleware('staff')->name('st-ap.visitedStatus');
+
+

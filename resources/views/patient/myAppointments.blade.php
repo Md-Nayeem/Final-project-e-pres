@@ -38,7 +38,7 @@
                         </td>
                         <td>{{$appointment->doctor->user->name}}</td>
                         <td>{{$appointment->doctor->office_location}}</td>
-                        <td>{{\Carbon\Carbon::parse($appointment->dates)->isoFormat('ddd')}}</td>
+                        <td>{{\Carbon\Carbon::parse($appointment->dates)->isoFormat('MMM Do')}}</td>
                         <td>{{\Carbon\Carbon::parse($appointment->time)->isoFormat('h:mm A')}}</td>
                         <td class="text-center">
   

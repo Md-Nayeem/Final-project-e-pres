@@ -62,7 +62,8 @@ class DoctorPrescriptionController extends Controller
             ->join('patients','patients.id','appointments.patient_id')
             ->join('users','users.id','patients.user_id')
             ->where('doctors.id','=',$doctor_id)
-            ->where('dates','>',Carbon::now()->format('d-m-Y H:i:s'))
+            ->where('dates','>=',Carbon::now())
+            ->where('appointments.visited',1)
             ->select('appointments.id')
             ->groupBy('appointments.id')
             ->orderBy('appointments.id', 'desc')
@@ -229,7 +230,9 @@ class DoctorPrescriptionController extends Controller
         $qtys = $allData['qty'];
         $days = $allData['days'];
 
-        $tests = $allData['test'];
+        if (Arr::has($allData,'test')) {
+            $tests = $allData['test'];
+        }
         // dd($tests);
 
         
@@ -258,15 +261,20 @@ class DoctorPrescriptionController extends Controller
         }
 
         // Patient Test data entry
-        for ($i=0; $i < count($tests); $i++) { 
-            
-            $test_data = [
-                'test_name'=>$tests[$i]
-            ];
 
-            $checking->Prescription->tests()->create($test_data);
-
-        }
+        if (Arr::has($allData,'test')) {
+            if ($tests[0] != null) {
+                for ($i=0; $i < count($tests); $i++) { 
+                    $test_data = [
+                        'test_name'=>$tests[$i]
+                    ];
+                    $checking->Prescription->tests()->create($test_data);
+                }
+            }
+        } 
+        
+        
+        
 
         return \redirect(route('dc-pres.index'));
 
