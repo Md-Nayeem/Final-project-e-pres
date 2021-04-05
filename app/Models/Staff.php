@@ -37,6 +37,16 @@ class Staff extends Model
     }
 
 
+    /**
+     * Get all of the doctors for the Staff
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function doctors()
+    {
+        return $this->belongsToMany(Doctor::class);
+    }
+
 
 
 

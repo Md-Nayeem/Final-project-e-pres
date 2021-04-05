@@ -32,6 +32,7 @@
                     <th>Age</th>
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
+                    <th scope="col">Doctor</th>
 
                     {{-- <th scope="col">Appointment Id</th> --}}
                     <th scope="col">date</th>
@@ -72,12 +73,13 @@
                     <td>{{$patient->age}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->phone}}</td>
+                    <td>{{$appointment->doctor->user->name}}</td>
 
                     {{-- <td>{{$appointment->id}}</td> --}}
                     <td>{{\Carbon\Carbon::parse($appointment->dates)->isoFormat('MMM Do')}}</td>
                     <td>{{\Carbon\Carbon::parse($appointment->time)->isoFormat('h:mm A')}}</td>
 
-                    <td class="   {{$appointment->visited == 0 ? 'table-warning' : 'table-success'}}   " >  {{$appointment->visited == 0 ? 'not visited' : 'visited'}}  </td>{{-- Using carbon class --}}
+                    <td class="   {{$appointment->visited == 0 ? 'table-warning' : 'table-success'}}   " >  {{$appointment->visited == 0 ? 'not visited' : 'visited'}}  </td>
                     <td>
                       <a href="{{route('st-ap.visitedStatus',['visitedStatus'=>$appointment->id])}}" class="btn btn-info"> Change </a>
                     </td>

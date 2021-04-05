@@ -320,6 +320,21 @@
                 </li>
               </ul>
             </li>
+
+
+            <li class="nav-item">
+            <a href="{{route('admin-dc.assigntolist')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Assigned
+                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+
+
+
+
           @endif
           
           @if ($currentUser->role->name == 'Doctor')

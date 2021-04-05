@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr; // To user array helper function
+use Illuminate\Support\Str;
+use App\Models\Patient;
+use App\Models\Checking;
+use App\Models\Prescription;
 
 class PatientController extends Controller
 {
@@ -41,21 +45,48 @@ class PatientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Patient  $patient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Patient $patient)
+    public function show($id)
     {
         //
     }
 
+
+    public function medicalTimeLine($id){
+
+
+        $patient = Patient::findOrFail($id);
+
+        
+
+        $oldprescriptionData = Prescription::select('*')
+        ->where('patient_id','=',$patient->id)
+        ->get();
+
+
+
+
+
+        return view('patient.myMedicalTimeLine',\compact('oldprescriptionData'));
+
+    }
+
+
+
+
+
+
+
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Patient  $patient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Patient $patient)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +95,10 @@ class PatientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Patient  $patient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Patient $patient)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +106,10 @@ class PatientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Patient  $patient
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Patient $patient)
+    public function destroy($id)
     {
         //
     }

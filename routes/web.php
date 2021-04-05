@@ -16,7 +16,8 @@ use App\Http\Controllers\AdminUsersController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/text',function(){
@@ -39,6 +40,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth','admin'])->prefix('admin-dc')->name('admin-dc.')->group(function(){
     // Route::resource('/', AdminUsersController::class);
     Route::resource('/', App\Http\Controllers\AdminDoctorController::class);
+    Route::get('assignedList',[App\Http\Controllers\AdminDoctorController::class, 'assignedStaffToDoctorList'])->name('assigntolist');
+    Route::post('assign', [App\Http\Controllers\AdminDoctorController::class, 'assignStaffToDoctor'])->name('assign');
     Route::resource('dpt', App\Http\Controllers\Departmentcontroller::class);
     Route::resource('dist', App\Http\Controllers\DistrictController::class);
 });
@@ -76,6 +79,11 @@ Route::middleware(['doctor'])->prefix('dc-pres')->name('dc-pres.')->group(functi
     // Route::post('mypatientlist', [App\Http\Controllers\DoctorPrescriptionController::class, 'patientlist'])->name('patientlist');
 });
 
+
+// Only Patient
+Route::resource('pt', App\Http\Controllers\PatientController::class)->middleware('auth');
+// get the medical of a patient
+Route::get('pt/mtl/{mtl}', [App\Http\Controllers\PatientController::class, 'medicalTimeLine'])->middleware('auth')->name('pt.mtl');
 
 // Index shows the doctor search 
 Route::resource('patient', App\Http\Controllers\PatientMobBookingController::class)->middleware('auth');

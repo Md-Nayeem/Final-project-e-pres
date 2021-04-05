@@ -112,6 +112,49 @@ class AdminDoctorController extends Controller
         return \redirect('admin-dc');
     }
 
+
+
+    public function assignedStaffToDoctorList(){
+
+        $doctors = Doctor::all();
+        
+
+        //Doctor name,id
+        $userDoc = User::where('role_id',2)
+        ->join('doctors','doctors.user_id','users.id')
+        ->select('users.name','doctors.id')
+        ->get()
+        ->pluck('name','id')->toArray();
+
+        //Staff name, id 
+        $userStaff = User::where('role_id',3)
+        ->join('staff','staff.user_id','users.id')
+        ->select('users.name','staff.id')
+        ->get()
+        ->pluck('name','id')->toArray();
+
+        return view('admin.doctor_staff.listAssign',\compact('doctors','userDoc','userStaff'));
+
+    }
+
+
+
+    public function assignStaffToDoctor(Request $request){
+
+        $appointments = DB::table('doctor_staff')
+        ->insert([
+            'doctor_id' => $request->doctor_id, 
+            'staff_id' => $request->staff_id
+        ]);
+
+        return \redirect()->back();
+
+    }
+
+
+
+
+
     /**
      * Display the specified resource.
      *
@@ -120,7 +163,13 @@ class AdminDoctorController extends Controller
      */
     public function show($id)
     {
-        //
+        // Show the assigned Staff to doctors
+
+
+
+
+
+
     }
 
     /**

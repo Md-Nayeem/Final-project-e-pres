@@ -22,16 +22,22 @@ class StaffAppointmentPaymentController extends Controller
     public function index()
     {
         // the visited Patients.
+
+        $staff = Auth::user()->staff;
+        // dd($staff);
         
         // all doctors appointments
         $appointments = DB::table('appointments')
-            // ->join('doctors','doctors.id','appointments.doctor_id')
+            ->join('doctors','doctors.id','appointments.doctor_id')
             ->join('patients','patients.id','appointments.patient_id')
             ->join('users','users.id','patients.user_id')
-            // ->where('doctors.id','=',$doctor_id)
+            ->join('doctor_staff','doctor_staff.doctor_id','doctors.id')
+            ->join('staff','doctor_staff.staff_id','staff.id')
+            ->where('staff.id','=',$staff->id)
             ->where('dates','>=',Carbon::now())
             ->select('appointments.id')
             ->groupBy('appointments.id')
+            // ->orderBy('doctor_id', 'ASC')
             ->orderBy('appointments.id', 'desc')
             ->get();
 

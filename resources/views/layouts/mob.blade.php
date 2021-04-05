@@ -7,6 +7,7 @@
 
 
   {{-- from theme --}}
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -24,14 +25,14 @@
   
   {{-- The Form tags --}}
   <link rel="stylesheet" href="{{ asset('css/bootstrap-tagsinput.css') }}">
-
+  
   {{-- Custom CSS --}}
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-
+  
   <!-- Select2 -->
   <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-
+  
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <!-- Daterange picker -->
@@ -39,8 +40,9 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
   {{-- end theme --}}
-
-
+  
+  @yield('styles')
+  
   <title>Document</title>
 </head>
 <body>
@@ -68,8 +70,11 @@
         <li class="nav-item active">
           <a class="nav-link" href="{{route('patient.prescriptionsList',['prescriptionsList'=>$currentUser->patient->id])}}">Prescriptions<span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="{{route('patient.appointments',['appointments'=>$currentUser->patient->id])}}">My Appointments</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{route('pt.mtl',['mtl'=>$currentUser->patient->id])}}">My Medical timeline</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -107,9 +112,14 @@
 
 {{-- start theme js links--}}
   <!-- jQuery -->
-  <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+  {{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script> --}}
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
   <!-- jQuery UI 1.11.4 -->
-  <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+  {{-- <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script> --}}
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 
   {{-- here will be custom js scripts --}}
