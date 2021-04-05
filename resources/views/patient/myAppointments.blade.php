@@ -24,6 +24,7 @@
                         <th scope="col">Time</th>
                         
                         <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-center">payment</th>
                           
                       </tr>
                           
@@ -54,8 +55,19 @@
                               Not visited
                             </div>                        
                           @endif
+
+
+                          
+
+
+
+
   
                           {{-- <a class=" btn btn-success" href="{{route('patient.show',['patient'=>$doctor->id])}}">Book Appointment</a> --}}
+                        </td>
+                        <td>
+                          {{-- this will give the appointment id --}}
+                          <a class="btn btn-warning" href="{{route('payment',['payment'=>$appointment->checking->prescription->id])}}">Pay</a>
                         </td>
                       </tr>
                     @endforeach  

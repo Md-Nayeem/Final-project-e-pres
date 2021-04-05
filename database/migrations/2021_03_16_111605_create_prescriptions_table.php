@@ -18,6 +18,7 @@ class CreatePrescriptionsTable extends Migration
             $table->foreignId('patient_id')->constrained('patients');
             $table->foreignId('doctor_id')->constrained('doctors');
             $table->foreignId('checking_id')->constrained('checkings');
+            $table->unsignedBigInteger('order_id')->unsigned()->nullable()->comment('The users prescription order');
             $table->text('disease');
             $table->text('symptoms');
             $table->text('procedure');
