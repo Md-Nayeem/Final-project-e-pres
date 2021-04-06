@@ -24,7 +24,6 @@
                         <th scope="col">Time</th>
                         
                         <th scope="col" class="text-center">Status</th>
-                        <th scope="col" class="text-center">payment</th>
                           
                       </tr>
                           
@@ -41,19 +40,28 @@
                         <td>{{$appointment->doctor->office_location}}</td>
                         <td>{{\Carbon\Carbon::parse($appointment->dates)->isoFormat('MMM Do')}}</td>
                         <td>{{\Carbon\Carbon::parse($appointment->time)->isoFormat('h:mm A')}}</td>
-                        <td class="text-center">
-  
+                        
                           @if ($appointment->checking)
-                            <div>
-                              
-                              {{-- <a href="#" class="btn btn-info">view</a> --}}
-                              <a class="btn btn-info" href="{{route('patient-pres.show',['patient_pre'=>$appointment->id])}}">view</a>
-                              
-                            </div>                        
+                          <td class="text-center">
+
+                            @if ($appointment->checking->prescription->order)
+                              <div>
+                                {{-- <a href="#" class="btn btn-info">view</a> --}}
+                                <a class="btn btn-info" href="{{route('patient-pres.show',['patient_pre'=>$appointment->id])}}">view</a>
+                              </div>                        
+                            @else
+                              <div>
+                                <a class="btn btn-warning" href="{{route('payment',['payment'=>$appointment->checking->prescription->id])}}">Pay</a>
+                              </div>
+                            @endif
+                          </td>
+                          
                           @else
-                            <div class="btn btn-success">
-                              Not visited
-                            </div>                        
+                            <td class="text-center">
+                              <div class="btn btn-success">
+                                Not visited
+                              </div>                        
+                            </td>
                           @endif
 
 
@@ -64,11 +72,6 @@
 
   
                           {{-- <a class=" btn btn-success" href="{{route('patient.show',['patient'=>$doctor->id])}}">Book Appointment</a> --}}
-                        </td>
-                        <td>
-                          {{-- this will give the appointment id --}}
-                          <a class="btn btn-warning" href="{{route('payment',['payment'=>$appointment->checking->prescription->id])}}">Pay</a>
-                        </td>
                       </tr>
                     @endforeach  
                   </tbody>

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+// use Auth;
 use App\Models\User;
 use App\Models\Prescription;
+// use App\Models\Patient;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
+// use Cookie;
 
 class SslCommerzPaymentController extends Controller
 {
@@ -21,7 +24,9 @@ class SslCommerzPaymentController extends Controller
         // dd($user);
         
         
-
+        //testing
+        // $cookie = cookie('name', 'value', $minutes);
+        // $cookie = cookie('patient_id', $pres->patient->id, 2);
 
         return view('payment.exampleEasycheckout',\compact('pres','user'));
     }
@@ -231,7 +236,15 @@ class SslCommerzPaymentController extends Controller
                     ->where('transaction_id', $tran_id)
                     ->update(['status' => 'Processing']);
 
-                echo "<br >Transaction is successfully Completed";
+                echo "<br >Transaction is successful Completed";
+
+
+
+                return \redirect()->route('msg');
+                
+                // return \redirect()->route('patient.prescriptionsList',['prescriptionsListid'=>$patient_id]);
+
+
             } else {
                 /*
                 That means IPN did not work or IPN URL was not set in your merchant panel and Transation validation failed.
@@ -246,7 +259,25 @@ class SslCommerzPaymentController extends Controller
             /*
              That means through IPN Order status already updated. Now you can just show the customer that transaction is completed. No need to udate database.
              */
-            echo "Transaction is successfully Completed";
+            // return \redirect()->route('msg');
+            echo '<div class="card pt-3">
+            <div class="card-body">              
+              <h4 class="card-title mb-2 font-weight-bold">Payment status</h4>
+              <p class="card-text  pt-2">Your payment is done successfully!</p>
+              <div class="text-center">
+                <a href="/patient" class="btn btn-success mx-1">Ok</a>
+              </div>
+            </div>
+          </div>';
+
+        //   echo "Transaction is successfully Completed";
+
+            return \redirect()->route('msg');
+            // return view('payment.message');
+
+
+            //NEED FIXING - view return
+
         } else {
             #That means something wrong happened. You can redirect customer to your product page.
             echo "Invalid Transaction";
@@ -324,7 +355,11 @@ class SslCommerzPaymentController extends Controller
                         ->where('transaction_id', $tran_id)
                         ->update(['status' => 'Processing']);
 
-                    echo "Transaction is successfully Completed";
+                    echo "Transaction successfully Completed";
+
+                    return \redirect()->route('msg');
+
+
                 } else {
                     /*
                     That means IPN worked, but Transation validation failed.

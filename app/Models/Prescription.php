@@ -78,6 +78,17 @@ class Prescription extends Model
     }
 
 
+    /**
+     * Get the order associated with the Prescription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function order()
+    {
+        return $this->hasOne(Order::class);
+    }
+
+
 
 
 

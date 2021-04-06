@@ -11,15 +11,23 @@
           @if ($oldprescriptionData->count())
 
             @foreach ($oldprescriptionData as $oldpres)
+
+
+            
               <div class="card bg-light">
                 <div class="card-header">
                   <h6 class="card-title">Date: {{$oldpres->created_at->toFormattedDateString()}} | <span class="font-italic"> Disease: {{$oldpres->disease}}</span></h6> 
                   <div class="card-tools">
-                    <button type="button" class="btn text-success btn-tool" aria-expanded="true" data-card-widget="collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn text-danger btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-                    </button>
+                    {{-- if not paid --}}
+                    @if ($oldpres->order)
+                      <button type="button" class="btn text-success btn-tool" aria-expanded="true" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn text-danger btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                      </button>
+                    @else
+                      <a class="btn btn-warning" href="{{route('payment',['payment'=>$oldpres->id])}}">Pay</a>
+                    @endif
                   </div>
                 </div>
                 <div class="card-body collapse">

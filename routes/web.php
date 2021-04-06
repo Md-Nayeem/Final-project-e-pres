@@ -136,3 +136,10 @@ Route::post('/cancel', [App\Http\Controllers\SslCommerzPaymentController::class,
 
 Route::post('/ipn', [App\Http\Controllers\SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+
+
+
+route::get('msg',function(){
+    return view('payment.message');
+})->name('msg');

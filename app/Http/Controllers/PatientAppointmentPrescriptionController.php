@@ -111,6 +111,7 @@ class PatientAppointmentPrescriptionController extends Controller
         $oldprescriptionData = Prescription::select('*')
         ->where('patient_id','=',$patient->id)
         // ->orderBy('id','desc')
+        ->latest()
         ->get();
 
         // dd($oldprescriptionData);
