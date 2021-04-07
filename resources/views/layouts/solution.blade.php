@@ -324,7 +324,7 @@
 
             <li class="nav-item">
             <a href="{{route('admin-dc.assigntolist')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-people-arrows"></i>
               <p>
                 Assigned
                 <span class="right badge badge-danger">New</span>
@@ -472,7 +472,7 @@
             
             <li class="nav-item">
               <a href="{{route('st-ap.index')}}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon fas fa-list"></i>
                 <p>
                   Booking
                 </p>

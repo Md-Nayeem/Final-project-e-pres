@@ -115,8 +115,8 @@
 
       <div class="col-md-6">
         <div class="some-class">
-          <h1>Today calendar (skin-black shadow-default)</h1>
           <div class="calendar-container text-center">
+            <h1 class="mx-auto">Today calendar</h1>
             <div id="dycalendar-today-with-skin-shadow" class="dycalendar-container shadow-default "></div>
           </div>
         </div>

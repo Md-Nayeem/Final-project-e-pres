@@ -13,7 +13,9 @@ class Patient extends Model
     protected $fillable = [
         'user_id',
         'age',
-        'gender_type_id',
+        'gender',
+        'blood_group',
+        'allergies',
         'height',
         'weight',
         'BMI',
@@ -55,7 +57,26 @@ class Patient extends Model
     }
 
 
+    /**
+     * Get the chronic_con associated with the Patient
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function chronic_con()
+    {
+        return $this->hasOne(Chronic_condition::class);
+    }
 
+
+    /**
+     * Get the genderType that owns the Patient
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function gender_type()
+    {
+        return $this->belongsTo(Gender_type::class);
+    }
 
 
 

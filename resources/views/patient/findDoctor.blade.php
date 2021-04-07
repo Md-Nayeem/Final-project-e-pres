@@ -6,11 +6,11 @@
       <div class="row">
         <div class="col-sm-4 col-md-6 col-lg-8">
           <div class="card card-primary">
-            <div class="card-hearder">
-              <h4 class="card-title">Select doctor from here.</h4>
+            <div class="card-hearder bg-info">
+              <h4 class="card-title pt-1 pl-2">Select Doctor.</h4>
             </div>
             <div class="card-body">
-              <p>Here, will be the search </p>
+              {{-- <p>Here, will be the search </p> --}}
               
 
               {!! Form::open(['method'=>'POST', 'action' => 'App\Http\Controllers\PatientMobBookingController@search']) !!}

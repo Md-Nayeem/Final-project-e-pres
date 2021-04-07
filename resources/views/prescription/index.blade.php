@@ -149,8 +149,9 @@
                                       <th scope="row">{{$testnum}}</th>
                                       <td>{{$test->test_name}}</td>
 
-                                      <td>{{$test->test_report_file_id ? 'file exists' : 'Not Uploaded'}}</td>
-
+                                      {{-- <td>{{$test->test_report_file_id ? 'file exists' : 'Not Uploaded'}}</td> --}}
+                                      <td><a href="/img/test/{{$test->testReport ? $test->testReport->path : 'doctor.png'}}" class="btn btn-success btn-sm">view</a></td>
+                                      
 
                                     </tr>
                                       @php
@@ -308,11 +309,6 @@
                             <input type="date" class="form-control" id="next_visit" name="next_visit" >
                           </div>
                           
-                        </div>
-
-                        <div class="form-group">
-                          <label for="inputAddress">Signature</label>
-                          <input type="text" class="form-control" id="inputAddress" placeholder="">
                         </div>
                           
                         <button type="submit" class="btn btn-primary">Prescribe</button>

@@ -24,6 +24,15 @@ Route::get('/text',function(){
     return view('text');
 });
 
+Route::get('/guest',function(){
+    return view('guest.index');
+});
+
+Route::get('/guest/reg',function(){
+    return view('guest.create');
+})->name('gst.create');
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

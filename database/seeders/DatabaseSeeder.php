@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             DoctorsTableSeeder::class,
             StaffsTableSeeders::class,
             PatientsTableSeeder::class,
+            ChronicConSeeder::class,
         ]);
     }
 }

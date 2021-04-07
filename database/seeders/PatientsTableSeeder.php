@@ -35,7 +35,9 @@ class PatientsTableSeeder extends Seeder
             [
                 'user_id'=>6,
                 'age'=>30,
-                'gender_type_id'=> 1,
+                'gender'=> 'M',
+                'blood_group'=> 'A+',
+                'allergies'=> 'Lobster',
                 'height'=> $height,
                 'weight'=> $weight,
                 'BMI'=> $bmi,
@@ -46,7 +48,9 @@ class PatientsTableSeeder extends Seeder
             [
                 'user_id'=>7,
                 'age'=>35,
-                'gender_type_id'=> 1,
+                'gender'=> 'F',
+                'blood_group'=> 'B+',
+                'allergies'=> 'Peanuts',
                 'height'=> $height+4,
                 'weight'=> $weight+3,
                 'BMI'=> $bmi,
