@@ -23,6 +23,10 @@ use App\Models\Appointment;
 use App\Models\TestReport;
 use PDF; 
 
+use App\Notifications\PaymentNotify;
+
+
+
 class PatientAppointmentPrescriptionController extends Controller
 {
     /**
@@ -115,6 +119,12 @@ class PatientAppointmentPrescriptionController extends Controller
         ->get();
 
         // dd($oldprescriptionData);
+
+        //After prescription
+        $patient->user->unreadNotifications->where('type','App\Notifications\PaymentNotify')->markAsRead();
+
+        //After payment
+        $patient->user->unreadNotifications->where('type','App\Notifications\PaymentDone')->markAsRead();
 
         return view('patient.myPrescriptions',\compact('oldprescriptionData'));
 

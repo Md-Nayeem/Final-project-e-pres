@@ -2,6 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminUsersController;
+
+//testing notification
+use App\Models\User;
+use App\Notifications\InvoicePaid;
+use App\Models\Doctor;
+use App\Models\Appointment;
+
+use App\Notifications\PaymentDone;
+
+
+
 // use PDF;  //testing
 
 /*
@@ -150,5 +161,43 @@ Route::post('/ipn', [App\Http\Controllers\SslCommerzPaymentController::class, 'i
 
 
 route::get('msg',function(){
+    
+    //Notify the Patient 
+    if($user = Auth::user()){
+        $user->notify(new PaymentDone);
+    }
+
     return view('payment.message');
 })->name('msg');
+
+
+
+// Notification 
+
+Route::get('/notification',function(){
+    // $ap = Appointment::findOrFail(1);
+    // return (new InvoicePaid($ap))
+    //     ->toDatabase($ap->doctor->user);
+
+
+
+    User::findOrFail(1)->notify(new InvoicePaid);
+
+
+});
+Route::get('/getnotifi',function(){
+    // $ap = Appointment::findOrFail(1);
+    // return (new InvoicePaid($ap))
+    //     ->toDatabase($ap->doctor->user);
+
+
+    $user = User::findOrFail(1);
+    // $user = App\Models\User::find(1);
+
+    foreach ($user->notifications as $notification) {
+        echo $notification->data['message'];
+    }
+
+
+});
+

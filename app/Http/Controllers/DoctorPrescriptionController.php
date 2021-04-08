@@ -21,6 +21,8 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Notifications\PaymentNotify;
+use App\Notifications\PatientWatingNotifyDoc;
 
 
 class DoctorPrescriptionController extends Controller
@@ -41,8 +43,9 @@ class DoctorPrescriptionController extends Controller
         // $todayNow = Carbon::now()->format('Y-m-d H:i:s');
         
         // dd($todayNow);
+        $doctorUser = Auth::user();
         
-        $doctor_id = Auth::user()->doctor->id;
+        $doctor_id = $doctorUser->doctor->id;
         
         // dd($doctor_id);
         
@@ -91,6 +94,9 @@ class DoctorPrescriptionController extends Controller
         // $appointments = Appointment::whereBetween('dates', [Carbon::now()->format('d-m-Y'), 100]);
 
         // $users = $appointments
+
+
+        $doctorUser->unreadNotifications->where('type','App\Notifications\PatientWatingNotifyDoc')->markAsRead();
 
 
 
@@ -273,7 +279,9 @@ class DoctorPrescriptionController extends Controller
             }
         } 
         
-        
+        // For notification
+        $patient = Patient::findOrFail($allData['patient_id']);
+        $patient->user->notify(new PaymentNotify);
         
 
         return \redirect(route('dc-pres.index'));

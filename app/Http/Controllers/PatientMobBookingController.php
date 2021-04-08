@@ -21,6 +21,13 @@ use App\Models\District;
 use App\Models\Appointment;
 
 
+use App\Notifications\AppointmentNotify;
+use App\Notifications\BookingNotifyStaff;
+
+
+use App\Models\Staff;
+
+
 class PatientMobBookingController extends Controller
 {
     /**
@@ -94,8 +101,9 @@ class PatientMobBookingController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $user = Auth::user();
 
-        $patient =  Auth::user()->patient;
+        $patient =  $user->patient;
 
         // dd($patient->id);
         
@@ -103,7 +111,21 @@ class PatientMobBookingController extends Controller
             // $request->request->add(['varible'=>'value']);
 
         // Union Array 
-        Appointment::create($request->all() + ['patient_id' => $patient->id]);
+        $appointment = Appointment::create($request->all() + ['patient_id' => $patient->id]);
+
+        $user->notify(new AppointmentNotify);
+        
+
+        // echo "Yo";
+        $staffUser = $appointment->doctor->staffs->first()->user;
+        
+        // dd($staffUser_id);
+        // $staffUser = Staff::findOrFail($staffUser_id);
+        //Booking
+        $staffUser->notify(new BookingNotifyStaff($appointment,$user));
+        // dd($staffUser);
+
+
 
         return \redirect('patient/'.$request->doctor_id);
 
@@ -168,6 +190,18 @@ class PatientMobBookingController extends Controller
             ->get();
 
         // dd($appointments);
+
+
+        // foreach ($patient->user->unreadNotifications as $notification) {
+        //     $notification->markAsRead();
+        // }
+        
+        //THis will loop through all this type of notification and mark it
+        $patient->user->unreadNotifications->where('type','App\Notifications\AppointmentNotify')->markAsRead();
+        
+        $patient->user->unreadNotifications->where('type','App\Notifications\PaymentDone')->markAsRead();
+        
+
 
         return view('patient.myAppointments',\compact('appointments'));
 

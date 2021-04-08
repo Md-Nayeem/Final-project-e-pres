@@ -11,6 +11,8 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Notifications\PatientWatingNotifyDoc;
+
 
 class StaffAppointmentPaymentController extends Controller
 {
@@ -43,6 +45,9 @@ class StaffAppointmentPaymentController extends Controller
 
         $todayNow = Carbon::now()->format('Y-m-d H:i:s');
 
+        
+        $staff->user->unreadNotifications->where('type','App\Notifications\BookingNotifyStaff')->markAsRead();
+
         return \view('staff.patientBookingList',\compact('appointments','todayNow'));
 
     }
@@ -59,6 +64,14 @@ class StaffAppointmentPaymentController extends Controller
         $appointment->update(['visited'=>$appointment->visited]);
 
         $appointment = Appointment::findOrFail($id);
+
+        //For Doctor notification
+        $patientUser = $appointment->patient->user;
+
+        $doctorUser = $appointment->doctor->user;
+        
+        $doctorUser->notify(new PatientWatingNotifyDoc($appointment,$patientUser));
+
 
         // dd($appointment);
 

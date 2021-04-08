@@ -69,10 +69,46 @@
           <a class="nav-link" href="{{route('patient-pres.index')}}">Appointments <span class="sr-only">(current)</span></a>
         </li> --}}
         <li class="nav-item active">
-          <a class="nav-link" href="{{route('patient.prescriptionsList',['prescriptionsList'=>$currentUser->patient->id])}}">Prescriptions<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{route('patient.prescriptionsList',['prescriptionsList'=>$currentUser->patient->id])}}">
+            
+            Prescriptions 
+            {{-- @if (count($currentUser->unreadNotifications->where('type','App\Notifications\PaymentNotify')) > 0 )
+              <span class="right badge badge-danger">
+                {{$currentUser->unreadNotifications->where('type','App\Notifications\PaymentNotify')->count()}}
+              </span>
+            @endif --}}
+
+
+            @if (count($currentUser->unreadNotifications->where('type','App\Notifications\PaymentNotify')) > 0 )
+              <span class="right badge badge-warning">
+                {{$currentUser->unreadNotifications->where('type','App\Notifications\PaymentNotify')->count()}}
+              </span>
+              
+            @elseif(count($currentUser->unreadNotifications->where('type','App\Notifications\PaymentDone')) > 0 )
+              <span class="right badge badge-success">
+                {{$currentUser->unreadNotifications->where('type','App\Notifications\PaymentDone')->count()}}
+              </span>
+            @else
+              
+            @endif
+
+
+          </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="{{route('patient.appointments',['appointments'=>$currentUser->patient->id])}}">My Appointments</a>
+
+
+          <a class="nav-link" href="{{route('patient.appointments',['appointments'=>$currentUser->patient->id])}}">
+            My Appointments 
+            @if (count($currentUser->unreadNotifications->where('type','App\Notifications\AppointmentNotify')) > 0 )
+              <span class="right badge badge-danger">
+                {{$currentUser->unreadNotifications->where('type','App\Notifications\AppointmentNotify')->count()}}
+              </span>
+            @endif
+
+          </a>
+
+
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="{{route('pt.mtl',['mtl'=>$currentUser->patient->id])}}">My Medical timeline</a>

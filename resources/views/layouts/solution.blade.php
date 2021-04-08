@@ -44,7 +44,10 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
+  @php
+    $currentUser = Auth::user();
+    // dd($currentUser);
+  @endphp
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -74,8 +77,9 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
@@ -131,32 +135,87 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
-      </li>
+      </li> --}}
+
+      
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+
+          @if ($currentUser->role->name == 'Doctor')
+            
+            @if (count($currentUser->unreadNotifications->where('type','App\Notifications\PatientWatingNotifyDoc')) > 0 )
+                    
+            <span class="badge badge-warning navbar-badge">
+              {{$currentUser->unreadNotifications->where('type','App\Notifications\PatientWatingNotifyDoc')->count()}}
+            </span>
+
+            @endif
+
+          @elseif($currentUser->role->name == 'Staff')
+
+            @if (count($currentUser->unreadNotifications->where('type','App\Notifications\BookingNotifyStaff')) > 0 )
+                    
+            <span class="badge badge-warning navbar-badge">
+              {{$currentUser->unreadNotifications->where('type','App\Notifications\BookingNotifyStaff')->count()}}
+            </span>
+
+            @endif
+
+          @endif
+
+
+
+
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <span class="dropdown-item dropdown-header">
+            
+            Notifications</span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          
+            
+        @if ($currentUser->role->name == 'Doctor')
+            
+          @foreach ($currentUser->unreadNotifications as $notification)
+              <a href="{{route('dc-pres.index')}}" class="dropdown-item">
+                <i class="fas fa-user-alt mr-2"></i>
+                {{$notification->data['User']}}
+              <span class="float-right text-muted text-sm">{{\Carbon\Carbon::parse($notification->data['Created'])->diffForHumans()}}</span>
+            </a>
+            <div class="dropdown-divider"></div>
+          
+          @endforeach
+        
+        @else
+          
+          @foreach ($currentUser->unreadNotifications as $notification)
+              <a href="{{route('st-ap.index')}}" class="dropdown-item">
+                <i class="fas fa-user-alt mr-2"></i>
+                {{$notification->data['User']}}
+              <span class="float-right text-muted text-sm">{{\Carbon\Carbon::parse($notification->data['Created'])->diffForHumans()}}</span>
+            </a>
+            <div class="dropdown-divider"></div>
+          
+          @endforeach
+        @endif
+            
+              
+
+            
+          {{--   <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-users mr-2"></i> 8 friend requests
+              <span class="float-right text-muted text-sm">12 hours</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+              <i class="fas fa-file mr-2"></i> 3 new reports
+              <span class="float-right text-muted text-sm">2 days</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}
         </div>
       </li>
       <li class="nav-item">
@@ -180,10 +239,7 @@
       <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
-    @php
-      $currentUser = Auth::user();
-      // dd($currentUser);
-    @endphp
+    
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -351,7 +407,14 @@
                 <li class="nav-item">
                   <a href="{{route('dc-pres.index')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>My Patients</p>
+                    <p>My Patients
+                      @if (count($currentUser->unreadNotifications->where('type','App\Notifications\PatientWatingNotifyDoc')) > 0 )
+                        
+                        <span class="right badge badge-danger">
+                          {{$currentUser->unreadNotifications->where('type','App\Notifications\PatientWatingNotifyDoc')->count()}}
+                        </span>
+                      @endif
+                    </p>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -475,6 +538,15 @@
                 <i class="nav-icon fas fa-list"></i>
                 <p>
                   Booking
+                  @if (count($currentUser->unreadNotifications->where('type','App\Notifications\BookingNotifyStaff')) > 0 )
+                    
+                  <span class="right badge badge-danger">
+                    {{$currentUser->unreadNotifications->where('type','App\Notifications\BookingNotifyStaff')->count()}}
+                  </span>
+                    
+                  @else
+                    
+                  @endif
                 </p>
               </a>
             </li>
@@ -484,7 +556,7 @@
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Widgets
-                <span class="right badge badge-danger">New</span>
+                {{-- <span class="right badge badge-danger">New</span> --}}
               </p>
             </a>
           </li>
