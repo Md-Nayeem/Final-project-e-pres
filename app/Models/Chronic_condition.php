@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Chronic_condition extends Model
 {
     use HasFactory;
+
+
+    
 }

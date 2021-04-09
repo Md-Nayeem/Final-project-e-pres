@@ -19,7 +19,7 @@
                   <h6 class="card-title">Date: {{$oldpres->created_at->toFormattedDateString()}} | <span class="font-italic"> Disease: {{$oldpres->disease}}</span></h6> 
                   <div class="card-tools">
                     {{-- if not paid --}}
-                    @if ($oldpres->order)
+                    @if ($oldpres->order->latest('id')->first()->status == "Processing")
                       <button type="button" class="btn text-success btn-tool" aria-expanded="true" data-card-widget="collapse">
                         <i class="fas fa-minus"></i>
                       </button>

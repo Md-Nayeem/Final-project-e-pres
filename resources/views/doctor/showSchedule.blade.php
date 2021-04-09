@@ -70,14 +70,12 @@
                               $time = \Carbon\Carbon::parse($perticulardaytime->time)->isoFormat('h:mm A');
 
                               echo '
-                              <form method="post" action="'.route('dc-schedule.destroy',['dc_schedule'=>$perticulardaytime->id]).'">
+                              <form class="float-right" method="post" action="'.route('dc-schedule.destroy',['dc_schedule'=>$perticulardaytime->id]).'">
                                 <label for="time">'.$time.'</label>
                                 <input type="hidden" name="_method" value="DELETE"> 
                                 <input type="hidden" name="_token" value="'. csrf_token() .'" /> 
                                 
                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash text-white"></i></button>
-                                
-                                
                               </form>';
                               
                               

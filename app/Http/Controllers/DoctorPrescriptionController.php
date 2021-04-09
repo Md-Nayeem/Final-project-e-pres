@@ -365,6 +365,16 @@ class DoctorPrescriptionController extends Controller
     }
 
 
+    public function showAllPrecribedPrescriptions(){
+
+        // Here, all the old prescription will be shown.
+
+        // $user = Auth::user();
+
+        
+
+
+    }
 
 
 

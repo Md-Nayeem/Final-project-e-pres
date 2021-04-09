@@ -80,4 +80,17 @@ class Patient extends Model
 
 
 
+
+    /**
+     * Get all of the prescriptions for the Patient
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class);
+    }
+
+
+
 }

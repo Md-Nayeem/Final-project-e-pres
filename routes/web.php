@@ -90,12 +90,14 @@ Route::resource('dc-pres', App\Http\Controllers\DoctorPrescriptionController::cl
 
 
 
+
 Route::middleware(['doctor'])->prefix('dc-pres')->name('dc-pres.')->group(function(){
     
     // Route::resource('/', App\Http\Controllers\DoctorPrescriptionController::class);
     Route::post('find', [App\Http\Controllers\DoctorPrescriptionController::class, 'findPatient']);
     Route::post('checkdata', [App\Http\Controllers\DoctorPrescriptionController::class, 'checkstore'])->name('checkdata');
     Route::post('post',[App\Http\Controllers\DoctorPrescriptionController::class,'ShowPrescriptionSystem'])->name('post');
+    Route::post('all',[App\Http\Controllers\DoctorPrescriptionController::class,'showAllPrecribedPrescriptions'])->name('all');
     // Route::post('mypatientlist', [App\Http\Controllers\DoctorPrescriptionController::class, 'patientlist'])->name('patientlist');
 });
 

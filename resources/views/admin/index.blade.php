@@ -143,9 +143,81 @@
             </div>
           </div>
           <!-- ./col -->
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner mx-2">
+                {{-- Role -> user -> count --}}
+                <h3>{{(App\Models\Department::count())}} <i class="far ml-1 fa-building"></i> </h3>
+
+                <p>Departments</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner mx-2">
+                {{-- Role -> user -> count --}}
+                <h3>{{(App\Models\District::count())}} <i class="fas ml-1 fa-city "></i> </h3>
+
+                <p>Districts</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
           
         </div>
         <!-- /.row -->
+
+        <h3>Economy</h3>
+
+        <div class="row">
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner mx-2">
+                <h3>{{App\Models\order::count()}} <i class="fas ml-1 fa-credit-card"></i></h3>
+
+                <p>Transaction made</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-2 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner mx-2">
+                {{-- Role -> user -> count --}}
+                <h3>{{(App\Models\order::all()->sum('amount'))}} <i class="fas ml-1 fa-money-bill-wave"></i></h3>
+
+                <p>Amount in tk</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          
+          
+        </div>
+
+
   </div>
 </section>
 @endsection

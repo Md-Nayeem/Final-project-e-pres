@@ -22,7 +22,51 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        //This will show the dashboard.
+
+
+        $patientUser = Auth::user();
+
+        
+
+
+        $amoutOfPres = Prescription::where('patient_id',$patientUser->patient->id)->count();
+
+
+        $amount = 0 ;
+
+        foreach ($patientUser->patient->prescriptions as $prescription) {
+            $amount += $prescription->order->latest('id')->first()->amount;
+        }
+
+
+        $testReports = 0; 
+        foreach ($patientUser->patient->prescriptions as $prescription) {
+            
+            // if ($prescription->tests) {
+            //     # code...
+            // }
+
+            // $testReports += $prescription->tests->has('test_report_file_id')->count();
+
+            
+            foreach ($prescription->tests as $test){
+                
+                // NEEDS FIXEDING
+                /* if($test->where('test_report_file_id','<>',null)){
+                    // $testReports++;
+                } */
+                
+                $testReports = $test->all()->count() - $test->where('test_report_file_id','=',null)->count();
+                
+            }
+            
+        }
+
+
+        return view('patient.dashboard',\compact('patientUser','amount','testReports'));
+
+
     }
 
     /**

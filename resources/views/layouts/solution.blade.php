@@ -55,12 +55,6 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
     </ul>
 
     <!-- SEARCH FORM -->
@@ -218,16 +212,6 @@
             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -236,8 +220,9 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      {{-- <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+      <img src="/img/logo/epres.png" alt="The solution logo" class="brand-image img-circle elevation-3" style="opacity: .8" >
+      <span class="brand-text font-weight-light">E-pres</span>
     </a>
     
     <!-- Sidebar -->
@@ -298,25 +283,28 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-id-badge"></i>
-              <p>
-                Profile
-              </p>
-            </a>
-          </li>
           
-          <li class="nav-item">
-            <a href="{{route('admin-ad.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-              </p>
-            </a>
-          </li>
-
+          
+               
           @if ($currentUser->role->name == 'Admin')
+            <li class="nav-item">
+              <a href="{{route('admin-ad.index')}}" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a href="{{route('admin-dc.assigntolist')}}" class="nav-link">
+                <i class="nav-icon fas fa-people-arrows"></i>
+                <p>
+                  Assigned
+                </p>
+              </a>
+            </li>  
+
             <li class="nav-item">
               <a href="#" class="nav-link ">
                 <i class="fas fa-user-md nav-icon"></i>
@@ -328,20 +316,14 @@
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{route('admin-dc.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>All Doctors</p>
+                    <i class="far fa-eye nav-icon"></i>
+                    <p>view</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{route('admin-dc.create')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Add Doctor</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v3</p>
+                    <i class="fas fa-plus-circle nav-icon"></i>
+                    <p>Add</p>
                   </a>
                 </li>
               </ul>
@@ -358,35 +340,22 @@
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{route('admin-ad.li')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>All</p>
+                    <i class="far fa-eye nav-icon"></i>
+                    <p>view</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{route('admin-ad.create')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Add new</p>
+                    <i class="fas fa-plus-circle nav-icon"></i>
+                    <p>Add</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="./index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v3</p>
-                  </a>
-                </li>
+                
               </ul>
             </li>
 
 
-            <li class="nav-item">
-            <a href="{{route('admin-dc.assigntolist')}}" class="nav-link">
-              <i class="nav-icon fas fa-people-arrows"></i>
-              <p>
-                Assigned
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
+            
 
 
 
@@ -406,8 +375,8 @@
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{route('dc-pres.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>My Patients
+                    <i class="fas fa-user-clock nav-icon"></i>
+                    <p>Patients today
                       @if (count($currentUser->unreadNotifications->where('type','App\Notifications\PatientWatingNotifyDoc')) > 0 )
                         
                         <span class="right badge badge-danger">
@@ -418,17 +387,18 @@
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a href="{{route('dc-pres.index')}}" class="nav-link">
+                    <i class="fas fa-user-clock nav-icon"></i>
+                    <p>Old History</p>
+                  </a>
+                </li>
+                {{-- <li class="nav-item">
                   <a href="{{route('dc.index')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>New</p>
                   </a>
-                </li>
-                <li class="nav-item">
-                  <a href="./index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>None</p>
-                  </a>
-                </li>
+                </li> --}}
+                
               </ul>
             </li>
             <li class="nav-item">
@@ -456,12 +426,7 @@
                     <p>Add</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="./index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>None</p>
-                  </a>
-                </li>
+                
               </ul>
             </li>
           @endif
@@ -479,22 +444,17 @@
               <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="{{route('admin-st.index')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Staffs</p>
+                    <i class="far fa-eye nav-icon"></i>
+                    <p>view</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{route('admin-st.create')}}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Add new</p>
+                    <i class="fas fa-plus-circle nav-icon"></i>
+                    <p>Add</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="./index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v3</p>
-                  </a>
-                </li>
+                
               </ul>
             </li>
           @endif
@@ -532,6 +492,14 @@
           
           
           @if ($currentUser->role->name == 'Staff')
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
             
             <li class="nav-item">
               <a href="{{route('st-ap.index')}}" class="nav-link">
@@ -551,18 +519,6 @@
               </a>
             </li>
           @endif
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Widgets
-                {{-- <span class="right badge badge-danger">New</span> --}}
-              </p>
-            </a>
-          </li>
-          
-          
-          
           <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}"
               onclick="event.preventDefault();
@@ -592,10 +548,10 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; 2020-2021 <a href="https://adminlte.io">E-pres</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.1.0-pre
+      <b>Version</b> 1.0
     </div>
   </footer>
 
