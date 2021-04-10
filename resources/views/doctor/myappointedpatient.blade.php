@@ -31,9 +31,6 @@
                 <tr>
                     <th scope="col" colspan="5" class="bg-info">Personal</th>
                     <th scope="col" colspan="5" class="bg-warning">Others</th>
-
-                    {{-- <th colspan="3">Weight</th>
-                    <th>Volume</th> --}}
                 </tr>
                 <tr>
                     {{-- <th scope="col">ID</th> --}}
