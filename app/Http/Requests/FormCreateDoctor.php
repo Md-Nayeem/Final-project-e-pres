@@ -27,6 +27,7 @@ class FormCreateDoctor extends FormRequest
             'name'=>'required|max:100|min:3',
             'email'=>'required|unique:users', //here, user is the table name
             'phone'=>'required|max:11|min:11',
+            'pres_code'=>'required|max:4|min:4',
             'password'=> 'required|min:8|confirmed',
             'department_id'=>'required',
             'med_bio'=>'required',

@@ -25,6 +25,7 @@ class CreatePrescriptionsTable extends Migration
             $table->boolean('private')->default('1');
             $table->date('end_date');
             $table->date('next_visit');
+            $table->string('digital_signature');
             $table->timestamps();
         });
     }

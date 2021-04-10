@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\DB;
 use App\Notifications\PaymentNotify;
 use App\Notifications\PatientWatingNotifyDoc;
 
+use Illuminate\Support\Facades\Hash;
+
 
 class DoctorPrescriptionController extends Controller
 {
@@ -216,75 +218,114 @@ class DoctorPrescriptionController extends Controller
 
 
 
+        // test
 
-        $prescriptionData = [
-            'patient_id'=> $allData['patient_id'],
-            'doctor_id'=> $user->doctor->id,
-            'disease'=> $allData['disease'],
-            'symptoms'=> $allData['symptoms'],
-            'procedure'=> $allData['procedure'],
-            'end_date'=> $allData['end_date'],
-            'next_visit'=>$allData['next_visit'],
-        ];
-        // dd($prescriptionData);
+        if (Hash::check($allData['digital_signature'], $user->doctor->pres_code)) {
+            //if the digital signature matches doc pres_code.
 
-
-        $medicines = $allData['medicine'];
-
-        // return count($medicines);
-
-        $qtys = $allData['qty'];
-        $days = $allData['days'];
-
-        if (Arr::has($allData,'test')) {
-            $tests = $allData['test'];
-        }
-        // dd($tests);
-
-        
-        // $checking_id = $request->session()->get('checking_id');
-        $checking_id = $request->session()->pull('checking_id');
-        $checking = Checking::find($checking_id);
-        // dd($checking);
-
-        $checking->prescription()->create($prescriptionData);
-        // $prescription = Prescription::create($prescriptionData);
-        // $checking->Prescription->medicine->create($medicines);
-        // $pres->medicine->create($medicines);
-
-
-        // Patient_medicine data entry
-        for ($i=0; $i < count($medicines); $i++) { 
-            
-            $patient_medicine = [
-                'medicine_name'=>$medicines[$i],
-                'quantity'=>$qtys[$i],
-                'days'=>$days[$i],
+            $prescriptionData = [
+                'patient_id'=> $allData['patient_id'],
+                'doctor_id'=> $user->doctor->id,
+                'disease'=> $allData['disease'],
+                'symptoms'=> $allData['symptoms'],
+                'procedure'=> $allData['procedure'],
+                'end_date'=> $allData['end_date'],
+                'next_visit'=>$allData['next_visit'],
+                'digital_signature'=>$user->doctor->pres_code,
             ];
-            
-            $checking->prescription->medicine()->create($patient_medicine);
-        
-        }
+            // dd($prescriptionData);
 
-        // Patient Test data entry
 
-        if (Arr::has($allData,'test')) {
-            if ($tests[0] != null) {
-                for ($i=0; $i < count($tests); $i++) { 
-                    $test_data = [
-                        'test_name'=>$tests[$i]
-                    ];
-                    $checking->Prescription->tests()->create($test_data);
-                }
+            $medicines = $allData['medicine'];
+
+            // return count($medicines);
+
+            $qtys = $allData['qty'];
+            $days = $allData['days'];
+
+            if (Arr::has($allData,'test')) {
+                $tests = $allData['test'];
             }
-        } 
-        
-        // For notification
-        $patient = Patient::findOrFail($allData['patient_id']);
-        $patient->user->notify(new PaymentNotify);
+            // dd($tests);
+
+            
+            // $checking_id = $request->session()->get('checking_id');
+            $checking_id = $request->session()->pull('checking_id');
+            $checking = Checking::find($checking_id);
+            // dd($checking);
+
+            $checking->prescription()->create($prescriptionData);
+            // $prescription = Prescription::create($prescriptionData);
+            // $checking->Prescription->medicine->create($medicines);
+            // $pres->medicine->create($medicines);
+
+
+            // Patient_medicine data entry
+            for ($i=0; $i < count($medicines); $i++) { 
+                
+                $patient_medicine = [
+                    'medicine_name'=>$medicines[$i],
+                    'quantity'=>$qtys[$i],
+                    'days'=>$days[$i],
+                ];
+                
+                $checking->prescription->medicine()->create($patient_medicine);
+            
+            }
+
+            // Patient Test data entry
+
+            if (Arr::has($allData,'test')) {
+                if ($tests[0] != null) {
+                    for ($i=0; $i < count($tests); $i++) { 
+                        $test_data = [
+                            'test_name'=>$tests[$i]
+                        ];
+                        $checking->Prescription->tests()->create($test_data);
+                    }
+                }
+            } 
+            
+            // For notification
+            $patient = Patient::findOrFail($allData['patient_id']);
+            $patient->user->notify(new PaymentNotify);
+            
+
+            return \redirect(route('dc-pres.index'));
+
+
+        } else { // iF the pres_code doesnot match
+            
+            
+            
+
+            $patient = Patient::findOrFail($allData['patient_id'])->user;
+
+            $checking_id = $request->session()->get('checking_id');
+            $checking = Checking::findOrFail($checking_id);
+
+            $appointment_id = $checking->appointment->id;
+
+
+            $request->session()->flash('Comment_message','Your Code does not match!');
+            $oldprescriptionData = Prescription::select('*')
+            ->where('patient_id','=',$patient->id)
+            ->where('doctor_id','=',Auth::user()->doctor->id)
+            ->get();
+
+            return \view('prescription.index',\compact('patient','oldprescriptionData','appointment_id','checking'));
+
+
+        }
         
 
-        return \redirect(route('dc-pres.index'));
+            
+
+        
+
+
+
+
 
     }
 

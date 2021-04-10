@@ -318,8 +318,17 @@
                           </div>
                           
                         </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="digital_signature">Digital signature / your pres code</label>
+                            <input class="form-control" name="digital_signature" id="digital_signature" required>
+                          </div>
+                          <div class="form-group col-md-6 pt-3">
+                            <button type="submit" class="btn mt-3 btn-primary ">Prescribe</button>
+                          </div>
+                        </div>
                           
-                        <button type="submit" class="btn btn-primary">Prescribe</button>
+                        
                         {{-- <a href="#disease">Focus</a> --}}
                       </form>
                     @else
@@ -355,6 +364,11 @@
           
         </div>
         <!-- /.card -->
+        @if (Session::has('Comment_message'))
+            
+          <div class="alert alert-danger">{{session('Comment_message')}}</div> 
+            
+        @endif
         @include('includes.form_error')
       </div>
     </div>
@@ -410,6 +424,16 @@
         $(document).on('click', '#removeRow', function () {
             $(this).closest('#inputFormRow').remove();
         });
+
+
+        $("document").ready(function(){
+            setTimeout(function(){
+              $("div.alert-danger").remove();
+            }, 3000 ); // 3 secs
+        });
+
+
+
     </script>
 
 @endsection

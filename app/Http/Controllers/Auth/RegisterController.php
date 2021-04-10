@@ -62,11 +62,6 @@ class RegisterController extends Controller
             'weight' => ['required','numeric','digits_between:2,3'],
             // 'allergies' => ['string'],
         ]);
-
-
-        
-
-
     }
     
 

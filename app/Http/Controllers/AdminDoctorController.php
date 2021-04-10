@@ -70,6 +70,7 @@ class AdminDoctorController extends Controller
         // dd($validated);
 
         $validated['password'] = \bcrypt($request->password);
+        $validated['pres_code'] = \bcrypt($request->password);
 
         // $user = Auth::user();
 

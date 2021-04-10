@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\AdminUsersController;
 
 //testing notification
@@ -10,6 +11,9 @@ use App\Models\Doctor;
 use App\Models\Appointment;
 
 use App\Notifications\PaymentDone;
+
+
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 
@@ -25,6 +29,33 @@ use App\Notifications\PaymentDone;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+//email varification 
+
+
+    //to display a notice
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->middleware('auth')->name('verification.notice');
+
+
+    //handle requests generated when the user clicks the email verification link in the email
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        return redirect('/patient'); //edit herer.
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+
+    //verification email be resent
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('message', 'Verification link sent!');
+    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+//Email end
 
 Route::get('/', function () {
     // return view('welcome');

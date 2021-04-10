@@ -14,6 +14,7 @@ class Doctor extends Model
         'department_id',
         'med_bio',
         'experience',
+        'pres_code',
         'district_id',
         'office_location',
         'working_days',

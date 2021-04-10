@@ -21,6 +21,7 @@ class Prescription extends Model
         'procedure',
         'end_date',
         'next_visit',
+        'digital_signature'
     ];
 
 

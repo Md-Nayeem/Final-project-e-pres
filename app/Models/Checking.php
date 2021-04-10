@@ -32,4 +32,15 @@ class Checking extends Model
     }
 
 
+    /**
+     * Get the appointment that owns the Checking
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
+
+
 }
