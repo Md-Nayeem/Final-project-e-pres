@@ -58,8 +58,12 @@
                       {!! Form::text('allergies',null, ['class'=>'form-control','placeholder'=>'Red Meat, Peanuts...'])!!}
                     </div>
                     <div class='form-group'>
-                      {!! Form::label('Chronic_condition', 'Chronic condition / illness: ')!!} <small class="text-muted">(Optional)</small>
-                      {!! Form::text('Chronic_condition',null, ['class'=>'form-control','placeholder'=>'Diabetes, Asthma...'])!!}
+                      {!! Form::label('chro_name', 'Chronic condition / illness: ')!!} <small class="text-muted">(Optional)</small>
+                      {!! Form::text('chro_name',null, ['class'=>'form-control','placeholder'=>'Diabetes, Asthma...'])!!}
+                    </div>
+                    <div class='form-group'>
+                      {!! Form::label('chro_medicine', 'Chronic condition / illness: ')!!} <small class="text-muted">(Optional)</small>
+                      {!! Form::text('chro_medicine',null, ['class'=>'form-control','placeholder'=>'Insulin...'])!!}
                     </div>
                     <div class='form-group'> <small class="text-muted">(Optional)</small>
                       {!! Form::label('photo_id', 'Photo: ')!!}

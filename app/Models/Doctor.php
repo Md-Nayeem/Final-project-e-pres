@@ -18,6 +18,7 @@ class Doctor extends Model
         'office_location',
         'working_days',
         'visit_time',
+        'visit_fees'
     ];
 
     /**
@@ -102,6 +103,17 @@ class Doctor extends Model
     public function staffs()
     {
         return $this->belongsToMany(Staff::class);
+    }
+
+
+    /**
+     * Get all of the prescriptions for the Doctor
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class);
     }
 
 

@@ -364,6 +364,14 @@
           
           @if ($currentUser->role->name == 'Doctor')
             <li class="nav-item">
+              <a href="{{route('dc.create')}}" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="#" class="nav-link ">
                 {{-- <i class="fas fa-users-cog nav-icon"></i> --}}
                 <i class="fas fa-file-medical nav-icon"></i>
@@ -493,7 +501,7 @@
           
           @if ($currentUser->role->name == 'Staff')
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{route('st.create')}}" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard

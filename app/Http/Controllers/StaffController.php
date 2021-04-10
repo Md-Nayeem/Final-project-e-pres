@@ -35,7 +35,33 @@ class StaffController extends Controller
      */
     public function create()
     {
-        //
+        // show DashBoard here.
+
+        $StaffUser = Auth::user();
+
+
+        $MyDoctorsAppointments = 0; 
+
+        $visited = 0;
+
+        // $StaffUser->doctors
+
+
+        foreach ($StaffUser->staff->doctors as $doctor) {
+
+            $MyDoctorsAppointments += $doctor->appointments->count();
+            $visited += $doctor->appointments->where('visited',1)->count();
+
+        }
+
+
+        $notvisited = $MyDoctorsAppointments - $visited;
+        
+
+
+
+        return \view('staff.dashboard',\compact('StaffUser','MyDoctorsAppointments','visited','notvisited'));
+
     }
 
     /**

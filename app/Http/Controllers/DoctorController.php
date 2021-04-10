@@ -34,7 +34,22 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        //This will show the dashboard
+
+
+        $userDoc = Auth::user();
+
+        $amount = 0 ;
+
+        foreach ($userDoc->doctor->prescriptions as $prescription) {
+            $amount += $prescription->order->latest('id')->first()->amount;
+        }
+
+
+        return view('doctor.dashboard',\compact('userDoc','amount'));
+
+
+
     }
 
     /**

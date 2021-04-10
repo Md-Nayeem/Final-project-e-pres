@@ -16,6 +16,7 @@
                 
               </div>
               <div class="card-body">
+                <h4>Session: {{$singlePresdata->created_at->isoFormat('MMM Do')}} - {{\Carbon\Carbon::parse($singlePresdata->end_date)->isoFormat('MMM Do Y') }} </h4>
                 <div class="row">
                   <div class="col-md-6">
                     <h3>By: {{$singlePresdata->doctor->user->name}} | {{$singlePresdata->doctor->department->name}}</h3>
@@ -152,8 +153,8 @@
                   </div>
                 </div>
               </div>
-              <div class="card-footer collapse">
-                <p>Next visit:{{$singlePresdata->next_visit}} </p> 
+              <div class="card-footer">
+                <p>Next visit: {{$singlePresdata->next_visit}} </p> 
               </div>
             </div>
 

@@ -47,11 +47,11 @@
                         <small class="text-muted">The billing payment for Dr. {{$pres->doctor->user->name}}</small> <br>
                         <small class="text-muted"> {{\Carbon\Carbon::now()->isoFormat('Do MMM OY')}} </small>
                     </div>
-                    <span class="text-muted">500</span>
+                    <span class="text-muted">{{$pres->doctor->visit_fees}}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Total (BDT)</span>
-                    <strong>500 TK</strong>
+                    <strong>{{$pres->doctor->visit_fees}} TK</strong>
                 </li>
             </ul>
         </div>
@@ -141,7 +141,7 @@
                 <hr class="mb-4 d-none">
                 <div class="custom-control custom-checkbox d-none">
                     <input type="checkbox" class="custom-control-input" id="same-address">
-                    <input type="hidden" value="500" name="amount" id="total_amount" required/>
+                    <input type="hidden" value="{{$pres->doctor->visit_fees}}" name="amount" id="total_amount" required/>
                     {{-- test --}}
                     
                     <input type="hidden" value="{{$pres->id}}" name="pres_id" id="pres_id" />

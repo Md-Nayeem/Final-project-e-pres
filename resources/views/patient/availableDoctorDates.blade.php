@@ -14,6 +14,8 @@
               <h4 class="">{{$doctor->user->name}}</h4>
               <p class="card-text"> Exp: {{$doctor->experience}}years | Dept: {{$doctor->department->name}}</p>
               <p class="card-text"> {{$doctor->med_bio}}</p>
+              <p class="card-text badge badge-dark"> Visit Fee: {{$doctor->visit_fees}} tk</p>
+
               {{-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
 
               <hr class="w-100">

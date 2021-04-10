@@ -9,6 +9,9 @@ class Chronic_condition extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = [
+        'chro_name',
+        'chro_medicine',
+    ];
     
 }

@@ -19,14 +19,16 @@ class ChronicConSeeder extends Seeder
         DB::table('chronic_conditions')->insert([
             
             [
-                'name'=> 'Diabetes' ,
+                'chro_name'=> 'Diabetes' ,
                 'patient_id'=> 1,
+                'chro_medicine' => 'Insulin',
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'name'=> 'Heart Disease' ,
+                'chro_name'=> 'Heart Disease' ,
                 'patient_id'=> 2,
+                'chro_medicine' => 'Lotensin',
                 'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],

@@ -39,7 +39,7 @@
                         <h3 class="inline">Patient Name: <u>{{$patient->name}}</u></h3>
                       </div>
                       <div class="col-md-4 mx-auto">
-                        <img src="/img/profile/{{$patient->profilePhoto ? $patient->profilePhoto->path : 'anonymous.jpg'}}" height="100px" width="100px" alt="patient's profile picture" class="img-rounded" alt="patient Image">
+                        <img src="/img/profile/{{$patient->profilePhoto ? $patient->profilePhoto->path : 'user.png'}}" height="100px" width="100px" alt="patient's profile picture" class="img-rounded" alt="patient Image">
                       </div>
                     </div>
                     <div class="row my-3">
@@ -51,7 +51,7 @@
                       <div class="col-md-4 mx-auto"><h4>BMI: <u>{{$patient->patient->BMI}}</u></h4></div>
                     </div>
                     <div class="row my-3">
-                      <div class="col-md-4 mx-auto"><h4>Chronic Condition: <u>{{$patient->patient->chronic_con->name}}</u></h4></div>
+                      <div class="col-md-4 mx-auto"><h4>Chronic Condition: <u>{{$patient->patient->chronic_con->chro_name}}</u></h4></div>
                       <div class="col-md-4 mx-auto"><h4>Allergies: <u>{{$patient->patient->allergies}}</u></h4></div>
                     </div>
                     
@@ -256,13 +256,14 @@
                   <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab"> 
                      <div class="row my-3 ">
                       <div class="col-md-6 mx-auto">
-                        <h3 class="inline">Patient Name: <b>{{$patient->name}}</b></h3>
-                        <h4>Patient Age: <b>{{$patient->patient->age}}</b></h4>
+                        <h3 class="inline">Patient Name: <b>{{$patient->name}} ({{$patient->patient->age}})</b></h3>
+                        {{-- <h4>Patient Age: <b>{{$patient->patient->age}}</b></h4> --}}
                         <h4>Allergies: <b>{{$patient->patient->allergies}}</b></h4>
-                        <h4>Chronic condition: <b>{{$patient->patient->chronic_con->name}}</b></h4>
+                        <h4>Chronic condition: <b>{{$patient->patient->chronic_con->chro_name}}</b></h4>
+                        <h4>Common medicine: <b>{{$patient->patient->chronic_con->chro_medicine}}</b></h4>
                       </div>
                       <div class="col-md-6 pl-5">
-                        <img src="/img/profile/{{$patient->profilePhoto ? $patient->profilePhoto->path : 'anonymous.jpg'}}" height="100px" width="100px" alt="patient's profile picture" class="img-rounded" alt="patient Image">
+                        <img src="/img/profile/{{$patient->profilePhoto ? $patient->profilePhoto->path : 'user.png'}}" height="100px" width="100px" alt="patient's profile picture" class="img-rounded" alt="patient Image">
                       </div>
                       {{-- <div class="col-md-4 mx-auto"></div> --}}
 

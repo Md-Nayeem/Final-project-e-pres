@@ -15,7 +15,8 @@ class CreateChronicConditionsTable extends Migration
     {
         Schema::create('chronic_conditions', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
+            $table->text('chro_name');
+            $table->text('chro_medicine')->nullable();
             $table->foreignId('patient_id')->constrained('patients');
             $table->timestamps();
         });

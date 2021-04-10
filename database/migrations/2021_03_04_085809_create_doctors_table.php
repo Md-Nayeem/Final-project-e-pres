@@ -25,6 +25,7 @@ class CreateDoctorsTable extends Migration
             $table->string('office_location');
             $table->string('working_days');
             $table->string('visit_time');
+            $table->integer('visit_fees')->default(500);
             $table->timestamps();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('department_id')->constrained('departments');

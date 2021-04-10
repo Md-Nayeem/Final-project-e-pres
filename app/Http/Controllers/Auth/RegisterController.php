@@ -95,27 +95,8 @@ class RegisterController extends Controller
         $data = Arr::add($data,'role_id','4');
         $data = Arr::add($data,'BMI',$BMI);
 
-        // dd($data);
-
         // dd($data['blood_group']);
 
-
-        // $validated['password'] = \bcrypt($request->password);
-
-
-        // if($file = $data->file('photo_id')){
-
-        //     //Photo Name
-        //     $name =  Str::slug($validated['name']) ."-".Str::random(4).".". Str::after($file->getClientOriginalName(), '.');
-        //     dd($name);
-        //     // $file->move('img/profile',$name); //This function will create a new folder in there is not any in public directory.
-        //     // $pro_photo = ProfilePhoto::create(['path'=>$name]);
-        //     // $validated['photo_id'] = $pro_photo->id;
-        // }
-
-        // $Newuser = User::Create($validated);
-
-        // $Newuser->doctor()->create($validated);
 
         $Newuser = User::create([
             'name' => $data['name'],
@@ -130,7 +111,8 @@ class RegisterController extends Controller
         ]);
 
 
-        $Newuser->patient()->create($data);
+        $Newuser->patient()->create($data)->chronic_con()->create($data);
+        
 
         return $Newuser;
 

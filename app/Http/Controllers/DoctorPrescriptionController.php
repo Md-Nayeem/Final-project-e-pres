@@ -400,7 +400,20 @@ class DoctorPrescriptionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Here the doctor can update the fees of the visit
+
+        $doctor_id = $id;
+        // dd($request);
+        $doctor = Doctor::findOrFail($doctor_id);
+        // dd($doctor);
+        $doctor->update(['visit_fees'=>$request->visit_fees]);
+
+        return \redirect()->back();
+
+
+
+
+
     }
 
     /**
