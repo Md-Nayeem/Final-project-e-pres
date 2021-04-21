@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <h1 style="background-color: darkcyan; color:white; padding-bottom:5px;">Prescription</h1>
+  <h1 style="background-color: darkcyan; color:white; padding-bottom:5px;">E-pres Prescription</h1>
   <h2>By Dr: {{$singlePresdata->doctor->user->name}}</h2>
   <h3>Date: {{$singlePresdata->created_at->toFormattedDateString()}} | Disease: {{$singlePresdata->disease}}</h3>
   <h3>Symptoms: {{$singlePresdata->symptoms}}</h3>

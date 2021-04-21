@@ -13,6 +13,7 @@
         <div class="timelinediv">
           <h4>Doctor: {{$oldpres->doctor->user->name}}  </h4>
           <h5>Issue: {{$oldpres->disease}} </h5>  
+          {{-- here might be  --}}
           @if ($oldpres->order->latest('id')->first()->status == "Processing")
             <h6>Status: <span class="badge badge-success"> Paid </span>| Amount {{$oldpres->order->amount}} tk</h6>
           @else
