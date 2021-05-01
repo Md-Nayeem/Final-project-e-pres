@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-sm-4 col-md-6 col-lg-8">
           
-          <p>Here, will be the doctors. </p>
+          {{-- <p>Here, will be the doctors. </p> --}}
 
           {{-- NEED TO FIX THE MOBILE VIEW --}}
           @if ($doctors->count())

@@ -128,67 +128,26 @@ class DoctorPrescriptionController extends Controller
      */
     public function checkstore(FromCreateCheckup $request)
     {
-        // NEED FIXING
+
 
         $validated = $request->all();
-
-        // dd($validated);
-
         $pt = Patient::findOrFail($validated['patient_id']);
-
-
-        // user
         $patient = User::findOrFail($pt->user_id);
-
-
-
-        // dd($patient);
-
-        
-        // $checking = Checking::create($validated);
         $appointment_id = $validated['appointment_id'];
-
         $appointment = Appointment::findOrFail($appointment_id);
-
         $checking = $appointment->checking()->create($validated);
-
-
-
-
-
 
         $request->session()->put('checking_id', $checking->id);
 
-
-
         $doctor = Doctor::where('user_id',Auth::user()->id)->get();
-
 
         $oldprescriptionData = Prescription::select('*')
         ->where('patient_id','=',$patient->patient->id)
         ->where('doctor_id','=',$doctor[0]->id)
         ->get();
-
-
-
-
-
-        // Testing
-
-        // return \redirect()->route('prescription.index',[$patient,$oldprescriptionData,$appointment_id]);
         return \view('prescription.index',\compact('patient','oldprescriptionData','appointment_id','checking'));
 
 
-        // return \view('prescription.index',\compact('patient','oldprescriptionData','appointment_id'));
-
-
-        // return \redirect()->back();
-
-        // dd($patient);
-
-        
-
-        // return dd($request);
     }
     
 
@@ -204,21 +163,10 @@ class DoctorPrescriptionController extends Controller
         // 3 table to add data  -> prescription | medical_test | patient_medicine
         // Quantity logic from the medicine table "maximum quantity" for preticular medicine
         
-        // dd($request);
-
         $allData = $request->all(); //Array
-
-        // dd($allData);
-        // return $patient_id = $allData['patient_id'];
         $user = Auth::user();
 
         $validated = Arr::add($allData,'doctor_id',$user->doctor->id);
-
-    //  return $checking_id = $request->session()->get('checking_id');
-
-
-
-        // test
 
         if (Hash::check($allData['digital_signature'], $user->doctor->pres_code)) {
             //if the digital signature matches doc pres_code.
@@ -233,12 +181,7 @@ class DoctorPrescriptionController extends Controller
                 'next_visit'=>$allData['next_visit'],
                 'digital_signature'=>$user->doctor->pres_code,
             ];
-            // dd($prescriptionData);
-
-
             $medicines = $allData['medicine'];
-
-            // return count($medicines);
 
             $qtys = $allData['qty'];
             $days = $allData['days'];
@@ -246,21 +189,10 @@ class DoctorPrescriptionController extends Controller
             if (Arr::has($allData,'test')) {
                 $tests = $allData['test'];
             }
-            // dd($tests);
-
-            
-            // $checking_id = $request->session()->get('checking_id');
             $checking_id = $request->session()->pull('checking_id');
             $checking = Checking::find($checking_id);
-            // dd($checking);
 
             $checking->prescription()->create($prescriptionData);
-            // $prescription = Prescription::create($prescriptionData);
-            // $checking->Prescription->medicine->create($medicines);
-            // $pres->medicine->create($medicines);
-
-
-            // Patient_medicine data entry
             for ($i=0; $i < count($medicines); $i++) { 
                 
                 $patient_medicine = [
@@ -296,9 +228,6 @@ class DoctorPrescriptionController extends Controller
 
         } else { // iF the pres_code doesnot match
             
-            
-            
-
             $patient = Patient::findOrFail($allData['patient_id'])->user;
 
             $checking_id = $request->session()->get('checking_id');
@@ -318,13 +247,6 @@ class DoctorPrescriptionController extends Controller
 
         }
         
-
-            
-
-        
-
-
-
 
 
     }
@@ -378,18 +300,11 @@ class DoctorPrescriptionController extends Controller
 
     public function ShowPrescriptionSystem(Request $request){
         
-        // dd($request);
-
         $user_arr = User::where('id',$request->patient_user_id)->get();
 
         $appointment_id = $request->appointment_id;
 
-
         $doctor = Doctor::where('user_id',Auth::user()->id)->get();
-        // dd($doctor[0]);
-
-
-        //THis is the user
         $patient = $user_arr[0];
         
 

@@ -18,6 +18,7 @@ class Checking extends Model
         'BP_down',
         'Heart_rate',
         'Breathing_status',
+        'temperature',
     ];
 
 

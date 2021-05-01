@@ -144,7 +144,17 @@
                           <label style="font-weight:bold;">Diseases: </label>
                       </div>
                       <div class="col-md-8 col-6">
-                          {{$user->patient->chronic_con->name}}
+                          {{$user->patient->chronic_con->chro_name}}
+                      </div>
+                    </div>
+                    <hr />
+
+                    <div class="row ml-2 mt-4">
+                      <div class="col-sm-3 col-md-4 col-5">
+                          <label style="font-weight:bold;">Medicine: </label>
+                      </div>
+                      <div class="col-md-8 col-6">
+                          {{$user->patient->chronic_con->chro_medicine}}
                       </div>
                     </div>
                     <hr />

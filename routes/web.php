@@ -59,7 +59,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
     // return view('welcome');
-    return view('auth.login');
+    return view('guest.index');
 });
 
 Route::get('/text',function(){

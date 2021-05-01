@@ -20,6 +20,7 @@ class CreateCheckingsTable extends Migration
             $table->decimal('BP_up',3,0);
             $table->decimal('BP_down',3,0);
             $table->char('Heart_rate',3);
+            $table->float('temperature',3,1)->comment('this will be in fahrenheit');
             $table->string('Breathing_status');
             $table->timestamps();
         });

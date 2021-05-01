@@ -1,12 +1,12 @@
 @extends('layouts.mob')
 
 @section('content')
-  <section class="content pt-5">
+  <section class="content pt-3">
     <div class="container-fluid">
+      <h3 class="text-center">My Booking</h3>
       <div class="row">
         <div class="col-sm-4 col-md-6 col-lg-8">
  
-                
           
               
               {{-- <hr class="w-50"> --}}

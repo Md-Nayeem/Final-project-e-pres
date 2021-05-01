@@ -28,6 +28,7 @@ class FromCreateCheckup extends FormRequest
             'BP_down'=>'required|numeric|digits_between:2,3|between:70,120',
             'Heart_rate'=>'required|numeric|digits_between:2,3|between:60,100',
             'Breathing_status'=>'required|string',
+            'temperature'=>'required|numeric|digits_between:2,3',
             // 'appointment_id'=>'required',
         ];
     }

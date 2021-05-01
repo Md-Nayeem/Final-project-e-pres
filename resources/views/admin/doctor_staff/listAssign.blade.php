@@ -64,7 +64,7 @@
             {!! Form::select('doctor_id', ['' => '--Select Doctor--'] + $userDoc, 0, ['class'=>'form-control'])!!}
           </div> 
           <div class='form-group'>
-            {!! Form::label('staff_id', 'Doctor: ')!!}
+            {!! Form::label('staff_id', 'Staff: ')!!}
             {!! Form::select('staff_id', ['' => '--Select Staff--'] + $userStaff, 0, ['class'=>'form-control'])!!}
           </div> 
         <div class='card-footer text-center'>

@@ -62,7 +62,7 @@
                       {!! Form::text('chro_name',null, ['class'=>'form-control','placeholder'=>'Diabetes, Asthma...'])!!}
                     </div>
                     <div class='form-group'>
-                      {!! Form::label('chro_medicine', 'Chronic condition / illness: ')!!} <small class="text-muted">(Optional)</small>
+                      {!! Form::label('chro_medicine', 'Common Medicines: ')!!} <small class="text-muted">(Optional)</small>
                       {!! Form::text('chro_medicine',null, ['class'=>'form-control','placeholder'=>'Insulin...'])!!}
                     </div>
                     <div class='form-group'> <small class="text-muted">(Optional)</small>

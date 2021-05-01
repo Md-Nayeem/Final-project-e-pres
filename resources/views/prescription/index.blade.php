@@ -32,6 +32,7 @@
               </div>
               <div class="col-9">
                 <div class="tab-content" id="v-pills-tabContent">
+
                   {{-- User Info tab --}}
                   <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     <div class="row my-3">
@@ -54,8 +55,6 @@
                       <div class="col-md-4 mx-auto"><h4>Chronic Condition: <u>{{$patient->patient->chronic_con->chro_name}}</u></h4></div>
                       <div class="col-md-4 mx-auto"><h4>Allergies: <u>{{$patient->patient->allergies}}</u></h4></div>
                     </div>
-                    
-
                   </div>
 
                   {{-- Medical History tab --}}
@@ -153,11 +152,7 @@
                                     <tr>
                                       <th scope="row">{{$testnum}}</th>
                                       <td>{{$test->test_name}}</td>
-
-                                      {{-- <td>{{$test->test_report_file_id ? 'file exists' : 'Not Uploaded'}}</td> --}}
                                       <td><a href="/img/test/{{$test->testReport ? $test->testReport->path : 'doctor.png'}}" class="btn btn-success btn-sm">view</a></td>
-                                      
-
                                     </tr>
                                       @php
                                         $testnum++;
@@ -175,14 +170,9 @@
 
                       @endforeach
 
-                          
-                    
                     @else
                       <p class="text-center mt-2 text-secondary">Your have not prescribed this patient before.</p>
-                    @endif
-
-
-                    
+                    @endif                    
                   </div>
                   
 
@@ -216,14 +206,16 @@
                               <label for="Heart_rate">Heart Rate</label>
                               <input type="text" name="Heart_rate" class="form-control" id="Heart_rate" placeholder="70">
                             </div>
-                          </div>   
+                          </div> 
+                          <div class="form-group col-md-4 mx-auto">
+                            <label for="temperature">Temperature</label>
+                            <input type="text" name="temperature" class="form-control" id="temperature" placeholder="98°F">
+                          </div>  
                           <div class="card-footer text-center">
                             <button type="submit" class="btn btn-primary w-50">Add</button>
                           </div>   
                         </form>
                       @else
-                        
-                        
                         <div class="col-md-8">
                           <h3>Checkup Info</h3>
                           <div class="row">
@@ -235,21 +227,11 @@
                               <p>Breathing status: {{$checking->Breathing_status}}</p>
                               <p>Heart rate: {{$checking->Heart_rate}}</p>
                             </div>
+                            <p class="text-center">Body Temperature: {{$checking->temperature}}°F </p>
                           </div>
-                          
-                          
                         </div>
-                        
-                      
-                      @endif
-
-                      
-
-
-
-                      
+                      @endif  
                     </div>
-                    
                   </div>
 
                   {{-- Main Prescription form tab--}}
@@ -265,18 +247,10 @@
                       <div class="col-md-6 pl-5">
                         <img src="/img/profile/{{$patient->profilePhoto ? $patient->profilePhoto->path : 'user.png'}}" height="100px" width="100px" alt="patient's profile picture" class="img-rounded" alt="patient Image">
                       </div>
-                      {{-- <div class="col-md-4 mx-auto"></div> --}}
-
                     </div>                  
-                    
-
                     {{-- general form --}}
                     @if (Session::has('checking_id'))
                       <form method="POST" action="{{route('dc-pres.store')}}">
-                        {{-- <div class="form-group">
-                          <label for="post_tag">Disease test</label>
-                          <input type="post_tag" id="tags" data-role="tagsinput" class="form-control">
-                        </div> --}}
                         <input type="hidden" name="patient_id" value="{{$patient->patient->id}}">
                         @csrf
                         <input type="hidden" name="appointment_id" value="{{$appointment_id}}">
@@ -321,38 +295,19 @@
                         <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="digital_signature">Digital signature / your pres code</label>
-                            <input class="form-control" name="digital_signature" id="digital_signature" required>
+                            <input type="password" class="form-control" name="digital_signature" id="digital_signature" required>
                           </div>
                           <div class="form-group col-md-6 pt-3">
                             <button type="submit" class="btn mt-3 btn-primary ">Prescribe</button>
                           </div>
                         </div>
                           
-                        
-                        {{-- <a href="#disease">Focus</a> --}}
                       </form>
                     @else
                       <p>Please CheckUp --<i>{{$patient->name}}</i>-- first</p>   
                     @endif
 
                   </div>
-
-
-                 
-
-                  {{-- <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                    <form action="">
-                      <div class="form-group">
-                        <label for="inputAddress">Add Tests</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="type">
-                      </div>
-                    </form>
-                  </div> --}}
-
-
-
-
-
                 </div>
               </div>
             </div>
